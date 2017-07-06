@@ -1,2 +1,2 @@
 # Project-2
-Project 2 - Kevin, Reggie, Connor, Matt Bond, Matt T.
+Project 2 - Kevin, Rhegie, Connor, Matt Bond, Matt T.
