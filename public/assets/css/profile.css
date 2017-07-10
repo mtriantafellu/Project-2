@@ -1,0 +1,55 @@
+body {
+
+    background-color: rgba(255, 36, 43, 0.87);
+    font-family: porkys;
+
+}
+
+.glyphicon.glyphicon-remove {
+
+    font-size: 25px;
+    margin-left: 2%;
+    margin-top: 2%;
+    color: white;
+
+}
+
+#profile {
+
+    margin-left: 44.5%;
+    color: white;
+
+}
+
+#picturerow {
+
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+
+}
+
+#trophy {
+
+    margin-top: 6.25%;
+
+}
+
+#games_played {
+
+    margin-top: 3%;
+
+}
+
+#games {
+
+    margin-left: 72.5%;
+    color: white;
+
+}
+
+#cards_flipped, #games_won {
+
+    color: white;
+
+}
