@@ -1,0 +1,60 @@
+body {
+
+    background-color: rgba(255, 36, 43, 0.87);
+    font-family: porkys;
+
+}
+
+#apples1, #apples3 {
+
+    position: relative;
+    color: rgba(124, 252, 0, 0.92);
+
+}
+
+#apples2 {
+
+    position: relative;
+    color: white;
+
+}
+
+#title_row {
+
+    margin-top: 5%;
+    text-align: center;
+    vertical-align:middle;
+
+}
+
+#title_row {
+
+    margin-left: 5%;
+
+}
+
+#user {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.pager {
+
+    margin-top: 30%;
+
+}
+
+a {
+
+    color: rgba(0, 180, 2, 0.92);
+
+}
+
+a:hover, a:focus, a:active {
+    color: rgba(0, 180, 2, 0.92);
+}
