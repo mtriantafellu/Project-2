@@ -5,3 +5,7 @@
 #cardArea {
 	text-align: center;
 }
+
+.sidebar {
+	float: left;
+}
