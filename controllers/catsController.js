@@ -2,14 +2,16 @@ var express = require("express");
 
 var router = express.Router();
 
-// Import the model (cat.js) to use its database functions.
-var cat = require("../models/cat.js");
+// Import the model (user.js) to use its database functions.
+
+// need to change cat.js to card.js
+var userinfo = require("../models/cat.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
-  cat.all(function(data) {
+  userinfo.all(function(data) {
     var hbsObject = {
-      cats: data
+      userinfo: data
     };
     console.log(hbsObject);
     res.render("index", hbsObject);
@@ -17,10 +19,10 @@ router.get("/", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-  cat.create([
-    "name", "sleepy"
+  userinfo.create([
+    "user_name", "user_password"
   ], [
-    req.body.name, req.body.sleepy
+    req.body.user_name, req.body.user_password
   ], function() {
     res.redirect("/");
   });
@@ -31,8 +33,8 @@ router.put("/:id", function(req, res) {
 
   console.log("condition", condition);
 
-  cat.update({
-    sleepy: req.body.sleepy
+  userinfo.update({
+    user_name: req.body.user_name
   }, condition, function() {
     res.redirect("/");
   });
