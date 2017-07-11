@@ -20,32 +20,45 @@ function shuffle(array)
     return array;
 }
 
+function validate(player) {
+    var bool = false;
+    gameDB.forEach(function(game){
+            if(game.validate(player)===true)
+                {
+                    console.log('rawr');
+                    bool = true;
+                    console.log(bool);
+                }
+            }
+        );
+    return bool;
+}
 
-function Game(gameId,gameName){
+
+function Game(gameId,gameName) {
     this.id = gameId;
     this.name = gameName;
     this.players = [];
     this.playArea = [];
     this.deck = [];
-    this.makeDeck();
 //    this.deck = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
 
-    function addPlayer(player){
+    this.addPlayer = function(player){
         if(this.players.indexOf(player)<0 && this.players.length<8)
-        {   players.push(player);
+        {   this.players.push(player);
             player.game = this;
         }
     }
 
-    function placeCard(card){
+    this.placeCard = function(card){
         playArea.push(card);
     }
 
-    function invite(player) {
+    this.invite = function(player) {
 
     }
 
-    function makeDeck() {
+    this.makeDeck = function() {
 
         this.deck.push(new Card(2,'2','Two'));
         this.deck.push(new Card(3,'3','Three'));
@@ -61,30 +74,54 @@ function Game(gameId,gameName){
         this.deck.push(new Card(13,'13','King'));
         this.deck.push(new Card(14,'14','Ace'));
         this.shuffleDeck();
+        this.players.forEach(function(player){
+            player.drawFrom(this.deck);
+            player.drawFrom(this.deck);
+            player.drawFrom(this.deck);
+        });
+
     }
 
-    function validate(player) {
-        if(this.players.indexOf(player)>0 && player.password == this.players[this.indexOf(player)].password){ return true;}
-        else {
-            console.log('Invalid player',player);
-            return false;}
+
+    this.validate = function(player) {
+//        var playerGameIndex = -1;
+        console.log('Validating',player.name,player.game,player.password);
+        if (this.players.some
+            (function(item) {
+                    if (item.name === player.name && item.password === player.password)
+                        return true;
+                    else return false;
+                    }))
+            {
+                    console.log('Valid player!');
+                    return true;
+            }
+            else {return false;}
+
+        console.log('Invalid player',player);
+        console.log(this);
+        return false;
     }
 
-    function shuffleDeck()
+    this.shuffleDeck = function()
     {
         this.deck = shuffle(this.deck);
     }
+
+
+
+    this.makeDeck();
 
 }
 
 function Player(playerId,playerName,playerPassword) {
     this.id = playerId;
-    this.name = 'playerName';
+    this.name = playerName;
     this.password = playerPassword;
     this.game = '';
     this.hand = [];
 
-    function draw(deck) {
+    this.drawFrom = function(deck) {
         var card = deck[deck.length - 1];
         deck.pop();
         this.hand.push(card);
@@ -114,6 +151,16 @@ gameDB = [game1,game2];
 
 game1.addPlayer(mattT);
 game1.addPlayer(kevin);
+game1.addPlayer(mattB);
 game2.addPlayer(reggie);
 game2.addPlayer(connor);
 
+
+
+var gameObj = {
+    validate: validate,
+    games: gameDB,
+    players: playerDB
+};
+
+module.exports = gameObj;

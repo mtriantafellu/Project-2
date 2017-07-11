@@ -1,0 +1,26 @@
+
+<h1>Card Table!</h1>
+
+<h2>Cards in play!</h2>
+
+<ul>
+    {{#each public}}
+    <li>
+        {{this.text}}
+
+
+    </li>
+    {{/each}}
+</ul>
+
+<h2>Cards in hand!</h2>
+
+<ul>
+    {{#each mine}}
+    <li>
+        {{this.text}}
+
+        {{> cards/play-card}}
+    </li>
+    {{/each}}
+</ul>

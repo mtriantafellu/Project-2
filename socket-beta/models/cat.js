@@ -2,7 +2,7 @@
 var orm = require("../config/orm.js");
 
 var cat = {
-  all: function(cb) {
+/*  all: function(cb) {
     orm.all("cats", function(res) {
       cb(res);
     });
@@ -22,8 +22,8 @@ var cat = {
     orm.delete("cats", condition, function(res) {
       cb(res);
     });
-  }
+  }*/
 };
 
-// Export the database functions for the controller (catsController.js).
+// Export the database functions for the controller (gameController.js).
 module.exports = cat;
