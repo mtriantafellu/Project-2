@@ -7,14 +7,17 @@ body {
 
 #apples1, #apples3 {
 
-    position: relative;
+    font-size: 50px;
+    padding: 1%;
     color: rgba(124, 252, 0, 0.92);
+
 
 }
 
 #apples2 {
 
-    position: relative;
+    font-size: 50px;
+    padding: 1%;
     color: white;
 
 }
@@ -23,13 +26,6 @@ body {
 
     margin-top: 5%;
     text-align: center;
-    vertical-align:middle;
-
-}
-
-#title_row {
-
-    margin-left: 5%;
 
 }
 
@@ -43,9 +39,24 @@ body {
 
 }
 
-.pager {
+.btn-primary {
 
-    margin-top: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    margin-top: 15%;
+    transform: translate(-50%, -50%);
+
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:visited {
+
+    color: white;
+    background-image: none;
+    background-color: rgba(124, 252, 0, 0.92);
+    border-color: rgba(0, 169, 4, 0.92);
+    border-width: 2px;
 
 }
 
@@ -56,5 +67,7 @@ a {
 }
 
 a:hover, a:focus, a:active {
+
     color: rgba(0, 180, 2, 0.92);
+
 }
