@@ -1,3 +1,10 @@
+@font-face {
+
+	font-family: porkys;
+	src: url(../public/assets/fonts/porkys/PORKYS_.TTF);
+
+}
+
 body {
 
     background-color: rgba(255, 36, 43, 0.87);
