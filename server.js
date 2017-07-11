@@ -7,7 +7,9 @@ var port = 3000;
 var app = express();
 
 // Serve static content for the app from the "public" directory in the application directory.
-app.use("/public", express.static("/assets/css"));
+
+app.use(express.static("public"));
+//app.use("public", express.static("/assets/css"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
