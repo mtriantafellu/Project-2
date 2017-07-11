@@ -16,6 +16,15 @@ body {
 	text-align: center;
 }
 
-.sidebar {
-	float: left;
+.panel-login {
+	min-height: 100px;
 }
+
+.panel-cards {
+	min-height: 300px;
+}
+
+.panel-sidebar {
+	min-height: 600px;
+}
+
