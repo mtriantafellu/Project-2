@@ -90,7 +90,6 @@ router.get("/page", function(req, res) {
             return res.status(500).send();
         }
 
-        console.log('aethtehaetheth');
         console.log(html);
         // Return the HTML of the View
         return res.send(html);

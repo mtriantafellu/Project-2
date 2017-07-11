@@ -40,6 +40,7 @@ $(function () {
 //    makeButton('logout', 'Log out', login);
 //    makeButton('browse', 'Browse profiles', login);
 
+    $('form').submit(function(event){event.preventDefault()} );
 
     function login() {
 //        event.preventDefault();
@@ -56,7 +57,15 @@ $(function () {
 //        console.log('Logged in to sessionStorage:',sessionStorage.player);
 //        console.log(player);
 //        event.preventDefault();
-        $.get("/page", player, function(){console.log('???');} );
+        $.get("/page", player, function(){console.log('???');} ).done(function(data) {
+            console.log(data);
+            /////////////////////////////////////////////////////////////////
+            /////  Firefox blocks this and Chrome throws a warning...
+            /////////////////////////////////////////////////////////////////
+            document.write(data);
+
+                }
+            );
 //        $.get("/page1", player);
     }
 
