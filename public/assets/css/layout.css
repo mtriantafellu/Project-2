@@ -17,10 +17,15 @@ body {
 	text-align: center;
 }
 
-.panel-cards, .panel-logins, .panel-sidebar {
+.panel-cards, .panel-register, .panel-sidebar {
 	min-height: 300px;
 	box-shadow: 10px 10px 5px #000000;
 }
+
+.panel-login {
+	box-shadow: 10px 10px 5px #000000;
+}
+
 
 .panel-sidebar {
 	min-height: 600px;
