@@ -44,4 +44,16 @@ app.get("/login", function(req, res) {
   //  });
 });
 
+app.get("/profile", function(req, res) {
+    console.log("hey");
+    res.render("profile");
+    //  });
+});
+
+app.get("/playarea", function(req, res) {
+    console.log("hey");
+    res.render("playarea");
+    //  });
+});
+
 app.listen(port);
