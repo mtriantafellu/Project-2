@@ -3,7 +3,12 @@ body {
     font-family: porkys;
 }
 
+#pHeadings {
+	background-color: rgba(124, 252, 0, 0.92);
+}
+
 .jumbotron {
+	background-color: rgba(124, 252, 0, 0.92);
 	text-align: center;
 }
 
