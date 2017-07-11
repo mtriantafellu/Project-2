@@ -7,7 +7,7 @@ var port = 3000;
 var app = express();
 
 // Serve static content for the app from the "public" directory in the application directory.
-app.use(express.static("public"));
+app.use("/public", express.static("/assets/css"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -26,5 +26,20 @@ app.set("view engine", "handlebars");
 var routes = require("./controllers/catsController.js");
 
 app.use("/", routes);
+
+app.get("/", function(req, res) {
+    connection.query("SELECT * FROM userinfo;", function(err, data) {
+        if (err) {
+            throw err;
+        }
+        res.render("home", { userinfo: data });
+    });
+});
+
+app.get("/login", function(req, res) {
+    console.log("hey");
+        res.render("login");
+  //  });
+});
 
 app.listen(port);
