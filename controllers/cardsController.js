@@ -5,6 +5,8 @@ var router = express.Router();
 // Import the model (user.js) to use its database functions.
 
 // need to change cat.js to card.js
+
+// USERINFO
 var userinfo = require("../models/userinfo.js");
 
 // Create all our routes and set up logic within those routes where required.
@@ -28,13 +30,14 @@ router.post("/", function(req, res) {
   });
 });
 
-var profile = require("../models/userinfo.js");
+// PROFILE
+var profile = require("../models/profile.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/profile", function(req, res) {
     profile.all(function(data) {
         var hbsObject = {
-            userinfo: data
+            profile: data
         };
         console.log(hbsObject);
         res.render("profile", hbsObject);
@@ -52,8 +55,33 @@ router.post("/", function(req, res) {
 });
 
 
+// LOGIN
+var login = require("../models/login.js");
+
+// Create all our routes and set up logic within those routes where required.
+router.get("/login", function(req, res) {
+    login.all(function(data) {
+        var hbsObject = {
+            login: data
+        };
+        console.log(hbsObject);
+        res.render("login", hbsObject);
+    });
+});
+
+router.post("/", function(req, res) {
+    login.create([
+        "user_name", "user_password"
+    ], [
+        req.body.user_name, req.body.user_password
+    ], function() {
+        res.redirect("/");
+    });
+});
+
 /*
 //  PARTIALS
+//  NOUNS
 var nouns = require("../models/nouns.js");
 
 router.get("/playarea", function(req, res) {
@@ -76,6 +104,8 @@ router.post("/playarea", function(req, res) {
     });
 });
 */
+
+//    ADJECTIVES
 var adjectives = require("../models/adj.js");
 
 router.get("/playarea", function(req, res) {
@@ -97,7 +127,6 @@ router.post("/playarea", function(req, res) {
         res.redirect("/");
     });
 });
-
 
 router.put("/:id", function(req, res) {
   var condition = "id = " + req.params.id;
