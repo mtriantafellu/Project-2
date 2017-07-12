@@ -39,21 +39,36 @@ app.get("/", function(req, res) {
 });
 
 app.get("/login", function(req, res) {
-    console.log("hey");
+    console.log("login");
         res.render("login");
   //  });
 });
 
 app.get("/profile", function(req, res) {
-    console.log("hey");
+    console.log("profile");
     res.render("profile");
     //  });
 });
 
 app.get("/playarea", function(req, res) {
-    console.log("hey");
-    res.render("playarea");
-    //  });
+    connection.query("SELECT * FROM nouns;", function(err, data) {
+    if (err) {
+        throw (err);
+        console.log("playarea");
+        }
+        res.render("playarea", { nouns: data });
+    });
+});
+
+
+app.get("/playarea", function(req, res) {
+    connection.query("SELECT * FROM adjectives;", function(err, data) {
+        if (err) {
+            throw (err);
+            console.log("playarea");
+        }
+        res.render("playarea", { adjectives: data });
+    });
 });
 
 app.listen(port);

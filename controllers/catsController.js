@@ -27,6 +27,51 @@ router.post("/", function(req, res) {
     res.redirect("/");
   });
 });
+/*
+var nouns = require("../models/nouns.js");
+
+router.get("/playarea", function(req, res) {
+    nouns.all(function(data) {
+        var hbsObject = {
+            nouns: data
+        };
+        console.log(hbsObject);
+        res.render("playarea", hbsObject);
+    });
+});
+
+router.post("/playarea", function(req, res) {
+    nouns.create([
+        "noun", "description"
+    ], [
+        req.body.noun, req.body.description
+    ], function() {
+        res.redirect("/");
+    });
+});
+*/
+var adjectives = require("../models/adj.js");
+
+router.get("/playarea", function(req, res) {
+    adjectives.all(function(data) {
+        var hbsObject = {
+            adjectives: data
+        };
+        console.log(hbsObject);
+        res.render("playarea", hbsObject);
+    });
+});
+
+router.post("/playarea", function(req, res) {
+    adjectives.create([
+        "adjective", "description"
+    ], [
+        req.body.adjective, req.body.description
+    ], function() {
+        res.redirect("/");
+    });
+});
+
 
 router.put("/:id", function(req, res) {
   var condition = "id = " + req.params.id;
