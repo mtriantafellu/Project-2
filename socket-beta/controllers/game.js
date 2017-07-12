@@ -28,9 +28,9 @@ function validate(player) {
     gameDB.forEach(function(game){
             if(game.validate(player)===true)
                 {
-                    console.log('rawr');
+                    //console.log('rawr');
                     bool = true;
-                    console.log(bool);
+                    //console.log(bool);
                 }
             }
         );
@@ -286,12 +286,14 @@ game1.placeCard(mattB,mattB.hand[1]);
 mattB.drawFrom(game1.deck);
 
 console.log('These cards are actually in play:',game1.playArea);
-showPlayPhaseCards(game1,mattB);
+var mattBCardsInPlay = new showPlayPhaseCards(game1,mattB);
+
+console.log(mattBCardsInPlay.inPlay);
 
 
-
-
-// players are choosing card to play
+//  Adjective is visible.
+//  Players are choosing card to play.
+//  Judge is waiting.
 function showPlayPhaseCards(game,player) {
 
     this.inPlay = [];
@@ -315,7 +317,7 @@ function showPlayPhaseCards(game,player) {
         {
             this.inPlay.push(new DispCard('','empty'));
         }
-        else if(game.judge !=i && card != '')
+        else if(game.judge !=i && card != '' && i<game.numPlayers)
         {
             this.inPlay.push(new DispCard('','faceDown'));
         }
@@ -327,6 +329,10 @@ function showPlayPhaseCards(game,player) {
     console.log('Adjective:',this.adj);
     console.log(player.name,'sees these cards in play:',this.inPlay);
     console.log(player.name,'has these cards in hand:',this.inHand);
+}
+
+function likeThisCard(game,player,card) {
+    
 }
 
 
@@ -341,19 +347,22 @@ var gameObj = {
 
 var toDo = [];
 
-function whenDone(socket,call){
-    toDo.push({socket:socket, call:call});
+function whenDone(socket,call,game){
+    toDo.push({socket:socket, call:call, game:game});
     console.log('Tracking task...');
 }
 
-function done(game) {
+function done(param) {
+    console.log('Passed ',param,'attempt callbacks');
+    console.log('This is supposed to fire callbacks!!!');
     toDo.forEach(
         function(item,index,array){
             // if (game is associated with player's socket)
             // {
             console.log('Callback now?');
-            item.call(item.socket);
-            item.call = function(sckt){};
+            item.call(item.game);
+                // We should get rid of the used callbacks in the queue...
+            item.call = function(){};
             // }
         }
     );

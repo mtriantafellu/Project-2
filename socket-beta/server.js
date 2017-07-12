@@ -55,16 +55,17 @@ http.listen(3000, function(){
 });
 
 io.on('connection', function(socket){
-    socket.on('player action', function(msg){
+    var sckt = socket;
+    sckt.on('player action', function(msg){
         console.log('player action: ' + msg);
 //        io.emit('chat message','Hello, Major Tom. This is the server side console.');
 //        io.emit('server message','Refresh page now');
-        gameObj.whenDone(socket,refreshPages);
+        gameObj.whenDone('game1',refreshPages);
     });
 });
 
-function refreshPages(socket) {
-    console.log(socket);
+function refreshPages(game) {
+    console.log(game);
     io.emit('server message','Refresh page now');
     console.log('Page refresh?');
     //  Modify emit to only target players relevant to the original socket.
