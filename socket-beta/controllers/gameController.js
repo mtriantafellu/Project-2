@@ -61,7 +61,7 @@ router.get("/login", function(req, res) {
 });
 
 
-router.get("/page", function(req, res) {
+router.get("/game", function(req, res) {
 
     // post
     // console.log(req.body,'body');
@@ -92,8 +92,11 @@ router.get("/page", function(req, res) {
     console.log('Player to log in:', player);
     console.log(gameObj.validate(player));
 
+    console.log('gameObj.done(player.game);');
+//    gameObj.done(player.game);
+    gameObj.done(player);
 
-    res.render("index2", {player:player, public:public, mine:mine} ,function(err, html){
+    return res.render("index2", {player:player, public:public, mine:mine} ,function(err, html){
         if (err) {
             console.log("ERR", err);
 
@@ -101,7 +104,6 @@ router.get("/page", function(req, res) {
             return res.status(500).send();
         }
 
-        gameObj.done(player.game);
 //        console.log(html);
         // Return the HTML of the View
        return res.send(html);

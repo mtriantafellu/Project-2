@@ -5,22 +5,24 @@
 
 
 //console.log('Hello console!');
-var socket = io();
+//var socket = io();
 //console.log(socket);
 
 $(function () {
 
-    var player = '';
-//    event.preventDefault();
-    if(sessionStorage.player) {console.log('Login:',sessionStorage.player);}
-
-    // goes here???
-/*    var socket = io();
-    var loggedIn = false;*/
-
-
+    $.ajaxSetup({ cache: false });
     var socket = io();
-    listenForReload();
+    var player = '';
+
+    // listenForReload();
+
+    //    event.preventDefault();
+    if(sessionStorage.player)
+    {console.log('Login:',sessionStorage.player);
+        player = JSON.parse(sessionStorage.player);
+    }
+
+//    listenForReload();
 
 
     function listenForReload(){
@@ -28,41 +30,14 @@ $(function () {
 //        var loggedIn = false;
 
         socket.on('server message', function(msg){
-            if(sessionStorage.player)
-            {
-  //              loggedIn = true;
-/*            }
-            if(loggedIn == true)
-            {*/
 
-                console.log('Hello ground control...');
+            console.log('Hello ground control. Your message was',msg);
 
-                // Refresh this page!!!
-                $.get("/page", JSON.stringify(sessionStorage.player), function(){console.log('...');} ).done(function(data) {
-                        /////////////////////////////////////////////////////////////////
-                        /////  Firefox blocks this and Chrome throws a warning...
-                        /////////////////////////////////////////////////////////////////
-                        // document.write(data);
-                        ////////////////////////////////////////////////////////////////
-                        //  var newbody = $(data).body
-                        var body = data.match(/<body[^>]*>[\s\S]*<\/body>/gi);
-                        $('body').html(body);
+//            console.log(JSON.parse(sessionStorage.player));
+            // Refresh this page!!!
 
-                        console.log(msg,'(Wow, my page reloaded?)');
-                        $('button').click(function(event){
+            $.get("/game", JSON.parse(sessionStorage.player) ).done(getGamePage);
 
-                            event.preventDefault();
-
-                            socket.emit('player action', 'I did something.  Reload?');
-                            //  The following line would terminate the default form response POST route:
-                            //        return false;
-
-                            console.log('This button click should prompt reloads...');
-                        });
-
-                    }
-                );
-            }
         });
     }
 
@@ -94,21 +69,22 @@ $(function () {
 
     function login(event) {
         console.log('login button!!!');
-//        event.preventDefault();
+        event.preventDefault();
         var player = {};
 //        player.name = $('#username').val();
         player.name = $('#name').val();
         player.password = $('#password').val();
         player.game = $('#game').val();
-        player.url = '/page';
+        player.url = '/game';
         sessionStorage.player = JSON.stringify(player);
-        $.get("/page", player, function(){console.log('???');} ).done(function(data) {
-            /////////////////////////////////////////////////////////////////
-            /////  Firefox blocks this and Chrome throws a warning...
-            /////////////////////////////////////////////////////////////////
-           // document.write(data);
-            ////////////////////////////////////////////////////////////////
-          //  var newbody = $(data).body
+            ///////////////////
+        listenForReload();
+            ///////////////////
+
+        $.get("/game", player, function(){console.log('???');} ).done(getGamePage);
+    }
+
+    function getGamePage(data) {
             var body = data.match(/<body[^>]*>[\s\S]*<\/body>/gi);
             $('body').html(body);
 
@@ -117,8 +93,8 @@ $(function () {
 
                 event.preventDefault();
 
+                //////////////////
                 ///// Socket!!!!
-                listenForReload();
                 //////////////////
 
                 socket.emit('player action', 'I did something.');
@@ -126,10 +102,24 @@ $(function () {
                 //        return false;
 
                 console.log('This should happen first, locally only');
+
+                $.get("/game", player, function(){console.log('???');} ).done(getGamePage);
+
             });
+
+/*            $('form').submit(function(event){
+
+                    event.preventDefault();
+                    ///// Socket!!!!
+                    //////////////////
+                    socket.emit('player action', 'I did something.');
+                    //  The following line would terminate the default form response POST route:
+                    //        return false;
+                    console.log('This should happen first, locally only');
                 }
-            );
-    }
+            );*/
+        }
+
 
 });
 
