@@ -5,7 +5,7 @@ var router = express.Router();
 // Import the model (user.js) to use its database functions.
 
 // need to change cat.js to card.js
-var userinfo = require("../models/cat.js");
+var userinfo = require("../models/userinfo.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
