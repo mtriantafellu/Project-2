@@ -27,7 +27,33 @@ router.post("/", function(req, res) {
     res.redirect("/");
   });
 });
+
+var profile = require("../models/userinfo.js");
+
+// Create all our routes and set up logic within those routes where required.
+router.get("/profile", function(req, res) {
+    profile.all(function(data) {
+        var hbsObject = {
+            userinfo: data
+        };
+        console.log(hbsObject);
+        res.render("profile", hbsObject);
+    });
+});
+
+router.post("/", function(req, res) {
+    profile.create([
+        "user_name", "user_password"
+    ], [
+        req.body.user_name, req.body.user_password
+    ], function() {
+        res.redirect("/");
+    });
+});
+
+
 /*
+//  PARTIALS
 var nouns = require("../models/nouns.js");
 
 router.get("/playarea", function(req, res) {
