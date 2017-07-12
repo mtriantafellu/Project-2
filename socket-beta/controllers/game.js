@@ -313,7 +313,7 @@ function showPlayPhaseCards(game,player) {
         {
             this.inPlay.push(new DispCard(card,'faceUp'));
         }
-        else if (game.judge != i && card == '' && i< game.numPlayers)
+        else if (game.judge != i && card == '' && i<game.numPlayers)
         {
             this.inPlay.push(new DispCard('','empty'));
         }
@@ -321,7 +321,7 @@ function showPlayPhaseCards(game,player) {
         {
             this.inPlay.push(new DispCard('','faceDown'));
         }
-        else if (i>game.numPlayers)
+        else if (i>=game.numPlayers)
         {
             this.inPlay.push(new DispCard('','null'));
         }
@@ -332,7 +332,7 @@ function showPlayPhaseCards(game,player) {
 }
 
 function likeThisCard(game,player,card) {
-    
+
 }
 
 
