@@ -58,12 +58,16 @@ router.get("/login", function(req, res) {
     //  });
 });
 
+
 router.get("/page", function(req, res) {
 
+    // post
+    // console.log(req.body,'body');
+    // console.log(req.query);
+    // var player = req.body;
 
-    console.log(req.query,'query');
-    console.log(req.query,'query');
-    console.log(req.query);
+// get
+  console.log(req.query,'query');
     var player = req.query;
 
     var public = [{
@@ -82,7 +86,7 @@ router.get("/page", function(req, res) {
     console.log(gameObj.validate(player));
 
 //    res.redirect('/');
-    res.render("index2", {player:player, public:public, mine:mine},function(err, html){
+    res.render("index2", {player:player, public:public, mine:mine} ,function(err, html){
         if (err) {
             console.log("ERR", err);
 
@@ -92,7 +96,7 @@ router.get("/page", function(req, res) {
 
         console.log(html);
         // Return the HTML of the View
-        return res.send(html);
+       return res.send(html);
     });
 
 });
