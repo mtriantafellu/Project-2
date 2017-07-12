@@ -13,6 +13,11 @@ body {
 	box-shadow: 10px 10px 5px #000000;
 }
 
+.panel-title {
+	text-align: center;
+	color: #000000;
+}
+
 #cardArea {
 	text-align: center;
 }
