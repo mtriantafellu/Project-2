@@ -25,7 +25,10 @@ body {
 .panel-cards, .panel-register, .panel-sidebar {
 	min-height: 220px;
 	box-shadow: 10px 10px 5px #000000;
+	background-color: #F7A2A2;
 }
+
+
 
 .panel-login {
 	box-shadow: 10px 10px 5px #000000;
@@ -34,5 +37,6 @@ body {
 
 .panel-sidebar {
 	min-height: 600px;
+	background-color: #F7A2A2;
 }
 
