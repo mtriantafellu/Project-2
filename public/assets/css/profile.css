@@ -16,8 +16,9 @@ body {
 
 #profile {
 
-    margin-left: 44.5%;
+    margin-left: 43.5%;
     color: white;
+    font-size: 45px;
 
 }
 
@@ -25,7 +26,7 @@ body {
 
     display: flex;
     justify-content: space-between;
-    margin-top: 5%;
+    margin-top: 1.75%;
 
 }
 
@@ -35,20 +36,31 @@ body {
 
 }
 
+#wreath {
+
+    width: 23.5%;
+    height: 27%;
+    margin-left: 5.75%;
+    margin-top: -20%;
+
+}
+
 #games_played {
 
     margin-top: 3%;
 
 }
 
-#games {
+#info_text_row {
 
-    margin-left: 72.5%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 7.25%;
     color: white;
 
 }
 
-#numGamesPlayed {
+#numGamesPlayed, #totalCardsFlipped, #gamesWon {
 
     color: rgba(124, 252, 0, 0.92);
 
