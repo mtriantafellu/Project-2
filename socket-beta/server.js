@@ -6,7 +6,7 @@ var port = process.env.PORT || 3000;
 
 var app = express();
 
-var gameLogic = require('./controllers/game.js');
+var gameObj = require('./controllers/game.js');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -55,11 +55,20 @@ http.listen(3000, function(){
 });
 
 io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-        console.log('message: ' + msg);
-        io.emit('chat message','Hello, Major Tom. This is the server side console.');
+    socket.on('player action', function(msg){
+        console.log('player action: ' + msg);
+//        io.emit('chat message','Hello, Major Tom. This is the server side console.');
+//        io.emit('server message','Refresh page now');
+        gameObj.whenDone(socket,refreshPages);
     });
 });
+
+function refreshPages(socket) {
+    console.log(socket);
+    io.emit('server message','Refresh page now');
+    console.log('Page refresh?');
+    //  Modify emit to only target players relevant to the original socket.
+}
 
 
 

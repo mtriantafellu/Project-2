@@ -10,14 +10,15 @@ router.use(bodyParser.json());
 // Import the model (cat.js) to use its database functions.
 var cat = require("../models/cat.js");
 var gameObj = require('./game.js');
+var pageloads = 0;
 
 router.get("/", function(req, res) {
 
-    if(req.query)
+/*    if(req.query)
     {
 
-    }
-    console.log(req.query,'query');
+    }*/
+//    console.log(req.query,'query');
 //    console.log(req,'req');
 //    console.log(res,'res');
 
@@ -32,15 +33,16 @@ router.get("/", function(req, res) {
             text: 'um ok'
         }];
 
-        console.log(req.params);
+//        console.log(req.params);
         res.render("index1", {public: public, mine: mine});
     //  });
 });
 
+
 // Create all our routes and set up logic within those routes where required.
 router.get("/login", function(req, res) {
 
-    console.log(req.query);
+//    console.log(req.query);
 
     var public = [{
         text: '???'
@@ -67,11 +69,16 @@ router.get("/page", function(req, res) {
     // var player = req.body;
 
 // get
-  console.log(req.query,'query');
+//  console.log(req.query,'query');
     var player = req.query;
+
+    pageloads++;
 
     var public = [{
         text: '???'
+    },
+        {
+        text: 'Page loads:'+pageloads
     }];
 
     var mine = [{
@@ -85,7 +92,7 @@ router.get("/page", function(req, res) {
     console.log('Player to log in:', player);
     console.log(gameObj.validate(player));
 
-//    res.redirect('/');
+
     res.render("index2", {player:player, public:public, mine:mine} ,function(err, html){
         if (err) {
             console.log("ERR", err);
@@ -94,7 +101,8 @@ router.get("/page", function(req, res) {
             return res.status(500).send();
         }
 
-        console.log(html);
+        gameObj.done(player.game);
+//        console.log(html);
         // Return the HTML of the View
        return res.send(html);
     });
