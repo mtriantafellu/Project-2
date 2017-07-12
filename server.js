@@ -29,46 +29,49 @@ var routes = require("./controllers/cardsController.js");
 
 app.use("/", routes);
 
-app.get("/", function(req, res) {
-    connection.query("SELECT * FROM userinfo;", function(err, data) {
-        if (err) {
-            throw err;
-        }
-        res.render("home", { userinfo: data });
-    });
-});
-
-app.get("/login", function(req, res) {
-    console.log("login");
-        res.render("login");
-  //  });
-});
-
-app.get("/profile", function(req, res) {
-    console.log("profile");
-    res.render("profile");
-    //  });
-});
-
-app.get("/playarea", function(req, res) {
-    connection.query("SELECT * FROM nouns;", function(err, data) {
-    if (err) {
-        throw (err);
-        console.log("playarea");
-        }
-        res.render("playarea", { nouns: data });
-    });
-});
-
-
-app.get("/playarea", function(req, res) {
-    connection.query("SELECT * FROM adjectives;", function(err, data) {
-        if (err) {
-            throw (err);
-            console.log("playarea");
-        }
-        res.render("playarea", { adjectives: data });
-    });
-});
-
 app.listen(port);
+
+
+//   ALL OF THESE HAVE BEEN PUT INTO THE CARDSCONTROLLER.JS
+/*
+ app.get("/", function(req, res) {
+ connection.query("SELECT * FROM userinfo;", function(err, data) {
+ if (err) {
+ throw err;
+ }
+ res.render("home", { userinfo: data });
+ });
+ });
+
+ app.get("/login", function(req, res) {
+ console.log("login");
+ res.render("login");
+ //  });
+ });
+
+ app.get("/profile", function(req, res) {
+ console.log("profile");
+ res.render("profile");
+ //  });
+ });
+
+ app.get("/playarea", function(req, res) {
+ connection.query("SELECT * FROM nouns;", function(err, data) {
+ if (err) {
+ throw (err);
+ console.log("playarea");
+ }
+ res.render("playarea", { nouns: data });
+ });
+ });
+
+ app.get("/playarea", function(req, res) {
+ connection.query("SELECT * FROM adjectives;", function(err, data) {
+ if (err) {
+ throw (err);
+ console.log("playarea");
+ }
+ res.render("playarea", { adjectives: data });
+ });
+ });
+ */
