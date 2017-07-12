@@ -10,7 +10,7 @@ var socket = io();
 
 $(function () {
 
-    event.preventDefault();
+//    event.preventDefault();
     if(sessionStorage.player)
     {console.log('Login:',sessionStorage.player);}
     var socket = io();
@@ -62,8 +62,12 @@ $(function () {
             /////////////////////////////////////////////////////////////////
             /////  Firefox blocks this and Chrome throws a warning...
             /////////////////////////////////////////////////////////////////
-            document.write(data);
-
+           // document.write(data);
+            ////////////////////////////////////////////////////////////////
+          //  var newbody = $(data).body
+            var body = data.match(/<body[^>]*>[\s\S]*<\/body>/gi);
+            console.log($(body));
+            $('body').html(body);
                 }
             );
 //        $.get("/page1", player);
