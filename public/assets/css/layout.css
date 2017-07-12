@@ -23,7 +23,7 @@ body {
 }
 
 .panel-cards, .panel-register, .panel-sidebar {
-	min-height: 300px;
+	min-height: 220px;
 	box-shadow: 10px 10px 5px #000000;
 }
 
