@@ -225,6 +225,21 @@ function Card(cardName, cardDesc) {
 function DispCard(dispCard,dispType) {
     this.type = dispType;
     this.card = dispCard;
+
+    this.judge=false;
+    this.faceUp=false;
+    this.faceDown=false;
+    this.empty=false;
+    this.isNull=false;
+    this.winner=false;
+
+    if(dispType=='judge'){this.judge=true;}
+    if(dispType=='faceUp'){this.judge=true;}
+    if(dispType=='faceDown'){this.faceDown=true;}
+    if(dispType=='empty'){this.empty=true;}
+    if(dispType=='null'){this.isNull=true;}
+    if(dispType=='winner'){this.winner=true;}
+
     console.log(dispCard);
 //    this.card = '';
     if(this.type == 'faceUp' && this.card.text && this.card.desc) {
