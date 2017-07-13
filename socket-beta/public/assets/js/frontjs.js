@@ -54,6 +54,7 @@ $(function () {
 //            button.click(function(){console.log('Clicked',button.attr('btn-name'),button.text())});
     }
 
+    //  <span id='button-row'><button btn-name='login'/>Log in</button></span>
 
     makeButton('login', 'Log in', login);
 

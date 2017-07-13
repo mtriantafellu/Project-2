@@ -8,7 +8,6 @@ router.use(bodyParser.json());
 
 
 // Import the model (cat.js) to use its database functions.
-var cat = require("../models/cat.js");
 var gameObj = require('./game.js');
 var pageloads = 0;
 

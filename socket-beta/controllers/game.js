@@ -46,7 +46,8 @@ function Game(gameName) {
     this.players = [];
     this.playArea = [];
     this.deck = [];
-    this.numPlayers = 4;
+    this.numPlayers = 0;
+//    this.numPlayers = 4;
 //    this.deck = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
     this.turns = [];
     this.turnNum = 0; // = turns.length
@@ -57,6 +58,7 @@ function Game(gameName) {
         if (this.players.indexOf(player) < 0 && this.players.length < 6) {
             this.players.push(player);
             player.game = this;
+            this.numPlayers++;
         }
     };
 
