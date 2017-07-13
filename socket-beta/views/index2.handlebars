@@ -8,6 +8,7 @@
 <ul>
     {{#each public}}
     <li>
+        <h3>Name:</h3> {{this.playerName}}
         <h3>Card state: {{this.type}}</h3>
         {{#if this.playable}}
             {{> cards/play-card}}

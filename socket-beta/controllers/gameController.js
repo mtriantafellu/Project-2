@@ -81,31 +81,20 @@ router.get("/login", function(req, res) {
     var player = finder.player;
 
 
-     var cardShower = new gameObj.showPlayPhaseCards(game,player,true);
+ //    var cardShower = new gameObj.showPlayPhaseCards(game,player,true);
+     var cardShower = new gameObj.showPlayPhaseCards(game,player);
+
 
     var public = cardShower.inPlay;
     var mine = cardShower.inHand;
+//    var names = cardShower.players;
+
  /*   var public = gameObj.showPlayPhaseCards(game,player,true).inPlay;
     var mine = gameObj.showPlayPhaseCards(game,player,true).inHand;*/
 
 //    var public = getGamePlayer(playerToken);
 
-/*    var public = [{
-        text: '???'
-    },
-        {
-        text: 'Page loads:'+pageloads
-    }];
 
-    var mine = [{
-        text: 'WHARRGARBL!!!',
-        playable: true
-    },
-        {
-          text: 'what???',
-            playable: false
-        }
-    ];*/
 
     console.log('Player to log in:', player);
     console.log(gameObj.validate(player));

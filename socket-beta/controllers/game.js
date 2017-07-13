@@ -46,7 +46,7 @@ function Game(gameName) {
     this.players = [];
     this.playArea = [];
     this.deck = [];
-    this.numPlayers = 3;
+    this.numPlayers = 4;
 //    this.deck = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
     this.turns = [];
     this.turnNum = 0; // = turns.length
@@ -67,6 +67,7 @@ function Game(gameName) {
 
     this.placeCard = function(player,card){
         this.playArea[this.players.indexOf(player)]=card;
+        player.canPlay = false;
     };
 
     // ideally, a separate function would invite players, and they would choose whether to join.
@@ -157,6 +158,10 @@ function Game(gameName) {
 
     this.newTurn = function() {
         this.turns.push(new Turn(this));
+
+        // Turn starts in "play phase".  Players choose to play noun, EXCEPT for judge.
+        this.players.forEach(function(item){item.canPlay=true});
+        this.players[this.judge].canPlay=false;
     };
 
         // Make sure you have enough players first?
@@ -165,6 +170,7 @@ function Game(gameName) {
         this.turns = [];
         this.turnNum = 0;
         this.playArea = [];
+
 
         this.adjDeck = shuffle(['happy','grumpy','sleepy','dopey','sneezy','doc','bashful']);
         this.makeDeck();
@@ -279,7 +285,7 @@ gameDB = [game1,game2];
 game1.addPlayer(mattT);
 game1.addPlayer(kevin);
 game1.addPlayer(mattB);
-game2.addPlayer(reggie);
+game1.addPlayer(reggie);
 game2.addPlayer(connor);
 game2.addPlayer(evilKevin);
 game1.start();
@@ -363,13 +369,17 @@ function getGamePlayer(gameStr,playerStr) {
 //  Players are choosing card to play.
 //  Judge is waiting.
 function showPlayPhaseCards(game,player,canPlay) {
+//function showPlayPhaseCards(game,player) {
 
+    this.players = game.players;
     this.inPlay = [];
     this.inHand = player.hand;
     this.playerIndex = game.players.indexOf(player);
     this.adj = game.turns[game.turnNum].adj;
 
-    if(canPlay){this.inHand.forEach(function(item){item.playable = true;});}
+    this.canPlay = player.canPlay;
+
+    if(this.canPlay){this.inHand.forEach(function(item){item.playable = true;});}
         else {this.inHand.forEach(function(item){item.playable = false;});}
 
     // cards in play
@@ -380,22 +390,27 @@ function showPlayPhaseCards(game,player,canPlay) {
         if (game.judge == i)
         {
             this.inPlay.push(new DispCard('judge','judge'));
+            this.inPlay[this.inPlay.length-1].playerName = this.players[i].name;
         }
         else if (i == this.playerIndex && game.judge != i && card != '')
         {
             this.inPlay.push(new DispCard(card,'faceUp'));
+            this.inPlay[this.inPlay.length-1].playerName = this.players[i].name;
         }
         else if (game.judge != i && card == '' && i<game.numPlayers)
         {
             this.inPlay.push(new DispCard('','empty'));
+            this.inPlay[this.inPlay.length-1].playerName = this.players[i].name;
         }
         else if(game.judge !=i && card != '' && i<game.numPlayers)
         {
             this.inPlay.push(new DispCard('','faceDown'));
+            this.inPlay[this.inPlay.length-1].playerName = this.players[i].name;
         }
         else if (i>=game.numPlayers)
         {
             this.inPlay.push(new DispCard('','null'));
+            this.inPlay[this.inPlay.length-1].playerName = 'No one...';
         }
     }
     console.log('Adjective:',this.adj);
