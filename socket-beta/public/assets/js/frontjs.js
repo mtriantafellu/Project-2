@@ -28,15 +28,11 @@ $(function () {
     function listenForReload(){
 
 //        var loggedIn = false;
-
         socket.on('server message', function(msg){
-
             console.log('Hello ground control. Your message was',msg);
-
 //            console.log(JSON.parse(sessionStorage.player));
             // Refresh this page!!!
-
-            $.get("/game", JSON.parse(sessionStorage.player) ).done(getGamePage);
+            $.post("/game", JSON.parse(sessionStorage.player) ).done(getGamePage);
 
         });
     }
@@ -60,9 +56,6 @@ $(function () {
 
 
     makeButton('login', 'Log in', login);
-//    makeButton('logan', 'Logan from the X-Men', logan);
-
-//    function logan() {console.log('Wolverine');}
 
     $('form').submit(function(event){event.preventDefault()} );
     $('button').click(function(event){event.preventDefault()} );
@@ -76,12 +69,13 @@ $(function () {
         player.password = $('#password').val();
         player.game = $('#game').val();
         player.url = '/game';
+        player.card = '';
         sessionStorage.player = JSON.stringify(player);
             ///////////////////
         listenForReload();
             ///////////////////
 
-        $.get("/game", player, function(){console.log('???');} ).done(getGamePage);
+        $.post("/game", player, function(){console.log('???');} ).done(getGamePage);
     }
 
     function getGamePage(data) {
@@ -103,22 +97,10 @@ $(function () {
 
                 console.log('This should happen first, locally only');
 
-                $.get("/game", player, function(){console.log('???');} ).done(getGamePage);
+                $.post("/game", player, function(){console.log('???');} ).done(getGamePage);
 
             });
-
-/*            $('form').submit(function(event){
-
-                    event.preventDefault();
-                    ///// Socket!!!!
-                    //////////////////
-                    socket.emit('player action', 'I did something.');
-                    //  The following line would terminate the default form response POST route:
-                    //        return false;
-                    console.log('This should happen first, locally only');
-                }
-            );*/
-        }
+    }
 
 
 });

@@ -54,7 +54,7 @@ function Game(gameName) {
     this.adjDeck = shuffle(['happy','grumpy','sleepy','dopey','sneezy','doc','bashful']);
 
     this.addPlayer = function (player) {
-        if (this.players.indexOf(player) < 0 && this.players.length < 8) {
+        if (this.players.indexOf(player) < 0 && this.players.length < 6) {
             this.players.push(player);
             player.game = this;
         }
@@ -161,6 +161,12 @@ function Game(gameName) {
 
         // Make sure you have enough players first?
     this.start = function() {
+        this.judge = 0; // = turns.length%numPlayers
+        this.turns = [];
+        this.turnNum = 0;
+        this.playArea = [];
+
+        this.adjDeck = shuffle(['happy','grumpy','sleepy','dopey','sneezy','doc','bashful']);
         this.makeDeck();
         this.dealCards();
         this.newTurn();
@@ -218,13 +224,18 @@ function Card(cardName, cardDesc) {
 // Set up card to be shown to a specific player.
 function DispCard(dispCard,dispType) {
     this.type = dispType;
-    this.card = '';
-    if(this.type == 'faceUp') {
-        this.card = dispCard;
+    this.card = dispCard;
+    console.log(dispCard);
+//    this.card = '';
+    if(this.type == 'faceUp' && this.card.text && this.card.desc) {
+        //this.card = dispCard;
+        this.text = dispCard.text;
+        this.desc = dispCard.desc;
     }
     else
     {
-        this.card = '';
+        this.text = '';
+        this.desc = '';
     }
 }
 
@@ -290,21 +301,67 @@ var mattBCardsInPlay = new showPlayPhaseCards(game1,mattB);
 
 console.log(mattBCardsInPlay.inPlay);
 
+// console.log('Let\'s look by string for (game1,mattB)...)');
+// console.log(getGamePlayer('game1','Matt B'));
+
+/*function isGame(gameStr,game) {
+    if(gameStr == game.name) {
+        console.log(gameStr,game.name,'true');
+        return true;}
+    else {
+        console.log(gameStr,game.name,'false');
+        return false;
+    }
+}
+
+function isPlayer(players,playerStr) {
+    if(players[i].name == playerStr) {return true;}
+    else return false;
+}*/
+
+function getGamePlayer(gameStr,playerStr) {
+    var gameFound = '';
+    var playerFound ='';
+
+    gameDB.forEach(function(item) {
+        if (item.name == gameStr) {
+            gameFound = item;
+//            console.log('Found game', gameStr, '=', item)
+           }
+        });
+
+    gameFound.players.forEach(function(item) {
+        if (item.name == playerStr) {
+            playerFound = item;
+//            console.log('Found player', playerStr, '=', item)
+            }
+        });
+
+    console.log({game:gameFound.name, player:playerFound.name});
+
+    this.game = gameFound;
+    this.player = playerFound;
+    return this;
+}
 
 //  Adjective is visible.
 //  Players are choosing card to play.
 //  Judge is waiting.
-function showPlayPhaseCards(game,player) {
+function showPlayPhaseCards(game,player,canPlay) {
 
     this.inPlay = [];
     this.inHand = player.hand;
     this.playerIndex = game.players.indexOf(player);
     this.adj = game.turns[game.turnNum].adj;
 
+    if(canPlay){this.inHand.forEach(function(item){item.playable = true;});}
+        else {this.inHand.forEach(function(item){item.playable = false;});}
+
     // cards in play
-    for(var i=0; i<8; i++)
+    for(var i=0; i<6; i++)
     {
         var card = game.playArea[i];
+        if(!card) {card ='';}
         if (game.judge == i)
         {
             this.inPlay.push(new DispCard('judge','judge'));
@@ -329,6 +386,8 @@ function showPlayPhaseCards(game,player) {
     console.log('Adjective:',this.adj);
     console.log(player.name,'sees these cards in play:',this.inPlay);
     console.log(player.name,'has these cards in hand:',this.inHand);
+
+    return this;
 }
 
 function likeThisCard(game,player,card) {
@@ -342,7 +401,9 @@ var gameObj = {
     games: gameDB,
     players: playerDB,
     whenDone: whenDone,
-    done: done
+    done: done,
+    getGamePlayer: getGamePlayer,
+    showPlayPhaseCards: showPlayPhaseCards
 };
 
 var toDo = [];

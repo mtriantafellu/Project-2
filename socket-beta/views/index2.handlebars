@@ -3,11 +3,18 @@
 
 <h2>Cards in play!</h2>
 
+<h4>Page loads:</h4> {{pageloads}}
+
 <ul>
     {{#each public}}
     <li>
-        {{this.text}}
-
+        <h3>Card state: {{this.type}}</h3>
+        {{#if this.playable}}
+            {{> cards/play-card}}
+        {{/if}}
+        {{#unless this.playable}}
+            {{> cards/look-card}}
+        {{/unless}}
 
     </li>
     {{/each}}
@@ -18,9 +25,15 @@
 <ul>
     {{#each mine}}
     <li>
-        {{this.text}}
-
-        {{> cards/play-card}}
+        <h3>{{this.text}}</h3>
+        <strong>Description:</strong>
+        {{this.desc}}
+            {{#if this.playable}}
+                {{> cards/play-card}}
+            {{/if}}
+            {{#unless this.playable}}
+                {{> cards/look-card}}
+            {{/unless}}
     </li>
     {{/each}}
 </ul>
