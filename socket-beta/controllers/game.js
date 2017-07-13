@@ -376,6 +376,7 @@ function showPlayPhaseCards(game,player,canPlay) {
     this.inHand = player.hand;
     this.playerIndex = game.players.indexOf(player);
     this.adj = game.turns[game.turnNum].adj;
+//    this.adjective = game.turns[Turn].adj;
 
     this.canPlay = player.canPlay;
 
