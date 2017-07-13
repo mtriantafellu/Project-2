@@ -49,10 +49,12 @@ router.get("/login", function(req, res) {
     }];
 
     var mine = [{
-        text: 'WHARRGARBL!!!'
+        text: 'WHARRGARBL!!!',
+        playable:true
     },
         {
-          text: 'um ok'
+          text: 'um ok',
+            playable:false
         }];
 
     res.render("index1", {public: public, mine: mine});
@@ -61,20 +63,34 @@ router.get("/login", function(req, res) {
 });
 
 
-router.get("/game", function(req, res) {
+// router.get("/game", function(req, res) {
+ router.post("/game", function(req, res) {
 
-    // post
-    // console.log(req.body,'body');
-    // console.log(req.query);
-    // var player = req.body;
+//    post
+    var playerToken = req.body;
 
 // get
 //  console.log(req.query,'query');
-    var player = req.query;
+//     var player = req.query;
 
     pageloads++;
 
-    var public = [{
+     var finder = new gameObj.getGamePlayer(playerToken.game,playerToken.name);
+
+    var game = finder.game;
+    var player = finder.player;
+
+
+     var cardShower = new gameObj.showPlayPhaseCards(game,player,true);
+
+    var public = cardShower.inPlay;
+    var mine = cardShower.inHand;
+ /*   var public = gameObj.showPlayPhaseCards(game,player,true).inPlay;
+    var mine = gameObj.showPlayPhaseCards(game,player,true).inHand;*/
+
+//    var public = getGamePlayer(playerToken);
+
+/*    var public = [{
         text: '???'
     },
         {
@@ -82,21 +98,23 @@ router.get("/game", function(req, res) {
     }];
 
     var mine = [{
-        text: 'WHARRGARBL!!!'
+        text: 'WHARRGARBL!!!',
+        playable: true
     },
         {
-          text: 'what???'
+          text: 'what???',
+            playable: false
         }
-    ];
+    ];*/
 
     console.log('Player to log in:', player);
     console.log(gameObj.validate(player));
 
     console.log('gameObj.done(player.game);');
 //    gameObj.done(player.game);
-    gameObj.done(player);
+    gameObj.done(playerToken);
 
-    return res.render("index2", {player:player, public:public, mine:mine} ,function(err, html){
+    return res.render("index2", {player:player, public:public, mine:mine, pageloads:pageloads} ,function(err, html){
         if (err) {
             console.log("ERR", err);
 
