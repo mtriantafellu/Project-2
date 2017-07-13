@@ -87,6 +87,8 @@ router.get("/login", function(req, res) {
 
     var public = cardShower.inPlay;
     var mine = cardShower.inHand;
+    var adj = cardShower.adj;
+
 //    var names = cardShower.players;
 
  /*   var public = gameObj.showPlayPhaseCards(game,player,true).inPlay;
@@ -103,7 +105,7 @@ router.get("/login", function(req, res) {
 //    gameObj.done(player.game);
     gameObj.done(playerToken);
 
-    return res.render("index2", {player:player, public:public, mine:mine, pageloads:pageloads} ,function(err, html){
+    return res.render("index2", {player:player, public:public, mine:mine, pageloads:pageloads, adj:adj} ,function(err, html){
         if (err) {
             console.log("ERR", err);
 

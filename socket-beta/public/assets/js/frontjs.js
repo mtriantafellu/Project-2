@@ -87,6 +87,9 @@ $(function () {
 
                 event.preventDefault();
 
+                console.log($(this).val());
+                player.cardClick = $(this).val();
+
                 //////////////////
                 ///// Socket!!!!
                 //////////////////
