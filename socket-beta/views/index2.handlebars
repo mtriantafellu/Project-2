@@ -15,9 +15,30 @@
         {{#unless this.playable}}
             {{> cards/look-card}}
         {{/unless}}
+
+        {{#if this.playable}}
+            (Playable!)
+        {{/if}}
+        {{#unless this.playable}}
+            (Not playable right now!)
+        {{/unless}}
+
+        {{#if this.faceUp}}
+            (Face up logic works)
+        {{/if}}
+
+        {{#if this.faceDown}}
+            (Face down logic works)
+        {{/if}}
+
         {{#if this.judge}}
             <h4>This is the judge!</h4>
         {{/if}}
+
+        {{#if this.empty}}
+            <h4>This player needs to hurry up!</h4>
+        {{/if}}
+
         {{#if this.isNull}}
             <h4>Jaqen H'ghar!</h4>  (No one)
             <img src="/assets/images/jaqen.png">
