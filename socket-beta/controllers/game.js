@@ -234,7 +234,7 @@ function DispCard(dispCard,dispType) {
     this.winner=false;
 
     if(dispType=='judge'){this.judge=true;}
-    if(dispType=='faceUp'){this.judge=true;}
+    if(dispType=='faceUp'){this.faceUp=true;}
     if(dispType=='faceDown'){this.faceDown=true;}
     if(dispType=='empty'){this.empty=true;}
     if(dispType=='null'){this.isNull=true;}
