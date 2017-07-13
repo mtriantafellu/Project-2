@@ -39,6 +39,9 @@ p {
 	margin-left: 5px;
 }
 
+#mainCard {
+	margin-left: 30px;
+}
 
 .panel-login {
 	box-shadow: 10px 10px 5px #000000;
