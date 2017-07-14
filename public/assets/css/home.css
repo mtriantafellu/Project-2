@@ -1,12 +1,9 @@
-@font-face {
-    font-family: 'porkys';
-    src: url(http://http://www.dafont.com/porkys.font/fonts/PORKYS_.TTF);
-}
+@import url('https://fonts.googleapis.com/css?family=Slackey');
 
 body {
 
     background-color: rgba(255, 36, 43, 0.87);
-    font-family: 'porkys', Arial, Helvetica, san-serif;
+    font-family: 'Slackey', cursive;
 
 }
 
