@@ -12,7 +12,8 @@ $(function () {
 
     $.ajaxSetup({ cache: false });
     var socket = io();
-    var player = '';
+//    var player = '';
+    var player = {};
 
     // listenForReload();
 
@@ -27,6 +28,10 @@ $(function () {
 
     function listenForReload(){
 
+        if(sessionStorage.player)
+        {console.log('Login:',sessionStorage.player);
+            player = JSON.parse(sessionStorage.player);
+        }
 //        var loggedIn = false;
         socket.on('server message', function(msg){
             console.log('Hello ground control. Your message was',msg);
@@ -58,13 +63,20 @@ $(function () {
 
     makeButton('login', 'Log in', login);
 
-    $('form').submit(function(event){event.preventDefault()} );
+    $('#login-form').submit(function(event){event.preventDefault()} );
     $('button').click(function(event){event.preventDefault()} );
+
+    if(sessionStorage.player)
+    {
+        var formData = JSON.parse(sessionStorage.player);
+        $('#name').val(formData.name);
+        $('#password').val(formData.password);
+        $('#game').val(formData.game);
+    }
 
     function login(event) {
         console.log('login button!!!');
         event.preventDefault();
-        var player = {};
 //        player.name = $('#username').val();
         player.name = $('#name').val();
         player.password = $('#password').val();
@@ -84,12 +96,19 @@ $(function () {
             $('body').html(body);
 
 //            console.log(body);
-            $('button').click(function(event){
+            $('.play-card').click(function(event){
+
+//                var player = JSON.parse(sessionStorage.player);
+                player = JSON.parse(sessionStorage.player);
+                player.card = $(this).val();
+                sessionStorage.player = JSON.stringify(player);
+//                var playerToken = JSON.stringify(player);
 
                 event.preventDefault();
 
                 console.log($(this).val());
-                player.cardClick = $(this).val();
+
+
 
                 //////////////////
                 ///// Socket!!!!

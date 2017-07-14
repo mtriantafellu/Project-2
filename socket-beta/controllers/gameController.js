@@ -13,26 +13,15 @@ var pageloads = 0;
 
 router.get("/", function(req, res) {
 
-/*    if(req.query)
-    {
-
-    }*/
-//    console.log(req.query,'query');
-//    console.log(req,'req');
-//    console.log(res,'res');
-
     var public = [{
-        text: '???'
+        text: ''
     }];
 
     var mine = [{
-        text: 'WHARRGARBL!!!'
-    },
-        {
-            text: 'um ok'
-        }];
+        text: ''
+    }
+    ];
 
-//        console.log(req.params);
         res.render("index1", {public: public, mine: mine});
     //  });
 });
@@ -44,17 +33,14 @@ router.get("/login", function(req, res) {
 //    console.log(req.query);
 
     var public = [{
-        text: '???'
+        text: ''
     }];
 
     var mine = [{
-        text: 'WHARRGARBL!!!',
-        playable:true
-    },
-        {
-          text: 'um ok',
-            playable:false
-        }];
+        text: '',
+        playable:false
+    }
+    ];
 
     res.render("index1", {public: public, mine: mine});
 
@@ -68,6 +54,8 @@ router.get("/login", function(req, res) {
 //    post
     var playerToken = req.body;
 
+    console.log(playerToken.card,'Hey look at this card!!!!');
+    console.log(playerToken);
 // get
 //  console.log(req.query,'query');
 //     var player = req.query;
@@ -95,8 +83,9 @@ router.get("/login", function(req, res) {
     var public = cardShower.inPlay;
     var mine = cardShower.inHand;
     var adj = cardShower.adj;
+     var scores = cardShower.scores;
 
-//    var names = cardShower.players;
+     //    var names = cardShower.players;
 
  /*   var public = gameObj.showPlayPhaseCards(game,player,true).inPlay;
     var mine = gameObj.showPlayPhaseCards(game,player,true).inHand;*/
@@ -112,7 +101,24 @@ router.get("/login", function(req, res) {
 //    gameObj.done(player.game);
     gameObj.done(playerToken);
 
-    return res.render("index2", {player:player, public:public, mine:mine, pageloads:pageloads, adj:adj} ,function(err, html){
+        console.log(playerToken.card,playerToken.name,playerToken.game);
+        console.log(playerToken.card,playerToken.name,playerToken.game);
+        console.log(playerToken.card,playerToken.name,playerToken.game);
+        console.log(playerToken.card,playerToken.name,playerToken.game);
+
+     var cardRef = '';
+     cardRef = gameObj.findPlayerCard(playerToken.card,playerToken.name,playerToken.game);
+
+    if(game.turnState === 'play' && cardRef != '' && player.canPlay)
+     {
+         console.log(cardRef);
+         console.log(cardRef);
+         game.placeCard(player,cardRef.card);
+//         game.placeCard(cardRef.player, cardRef.card);
+     }
+
+
+    return res.render("index2", {player:player, public:public, mine:mine, pageloads:pageloads, adj:adj, scores: scores} ,function(err, html){
         if (err) {
             console.log("ERR", err);
 
