@@ -1,15 +1,12 @@
 @font-face {
     font-family: 'porkys';
-    src: url('http://www.dafont.com/porkys.font');
-    src: local('porkys'),
-    url("PORKH___.TTF") format("TrueType Font"),
-    url("PORKYS_.TTF") format("TrueType Font");
+    src: url(http://http://www.dafont.com/porkys.font/fonts/PORKYS_.TTF);
 }
 
 body {
 
     background-color: rgba(255, 36, 43, 0.87);
-    font-family: porkys;
+    font-family: 'porkys', Arial, Helvetica, san-serif;
 
 }
 
