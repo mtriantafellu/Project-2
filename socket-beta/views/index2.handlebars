@@ -13,7 +13,17 @@
     <li>
         <h3>Name:</h3> {{this.playerName}}
         <h3>Card state: {{this.type}}</h3>
+        <h3>{{this.text}}</h3>
+        <strong>Description:</strong>
+        {{this.desc}}
         {{#if this.playable}}
+        {{> cards/play-card}}
+        {{/if}}
+        {{#unless this.playable}}
+        {{> cards/look-card}}
+        {{/unless}}
+
+<!--        {{#if this.playable}}
             {{> cards/play-card}}
         {{/if}}
         {{#unless this.playable}}
@@ -25,7 +35,7 @@
         {{/if}}
         {{#unless this.playable}}
             (Not playable right now!)
-        {{/unless}}
+        {{/unless}}-->
 
         {{#if this.faceUp}}
             (Face up logic works)
