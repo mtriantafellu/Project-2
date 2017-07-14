@@ -18,7 +18,7 @@ body {
 
 #profile {
 
-    margin-left: 43.75%;
+    margin-left: 42.5%;
     color: white;
     font-size: 40px;
 
@@ -29,6 +29,15 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 1.75%;
+
+}
+
+#wreath {
+
+    width: 20%;
+    height: 20%;
+    margin-left: 7.5%;
+    margin-top: -19.5%;
 
 }
 
@@ -44,23 +53,28 @@ body {
 
 }
 
+#info_text_row {
+
+    display: flex;
+    justify-content: space-between;
+    margin-left: 12%;
+
+}
+
 #trophyType {
 
-    margin-left: 43.75%;
     color: white;
 
 }
 
 #user_name {
 
-    margin-left: 29%;
     color: white;
 
 }
 
 #games {
 
-    margin-left: 14%;
     color: white;
 
 }
