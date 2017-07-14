@@ -73,7 +73,7 @@ function Game(gameName) {
         player.canPlay = false;
 
             // If no one needs to play a card...
-        if(players.findIndex(function(item){item.canPlay;})===-1)
+        if(this.players.every(function(item){return (item.canPlay===false); }) )
         {
                 // ...advance to judge phase of game.
             this.turnState = 'judge';
@@ -308,6 +308,9 @@ game2.start();
 console.log('Game 1 deck:',game1.deck);
 //console.log('Game 2 deck:',game2.deck);
 
+
+/*
+
 console.log('Matt T');
 showPlayPhaseCards(game1,mattT);
 console.log('Kevin');
@@ -338,6 +341,9 @@ var mattBCardsInPlay = new showPlayPhaseCards(game1,mattB);
 console.log(mattBCardsInPlay.inPlay);
 
 game1.placeCard(rhegi,rhegi.hand[3]);
+*/
+
+
 
 
 // console.log('Let\'s look by string for (game1,mattB)...)');
@@ -572,7 +578,7 @@ function findPlayerCard(cardStr,playerStr,gameStr) {
         console.log('player number:',playerIndex,'player name:',thisPlayer.name);
         console.log('card number:',cardIndex,'card name:',thisPlayer.hand[cardIndex].text);
 
-        return({player: thisPlayer, card:thisPlayer.hand[cardIndex]});
+        return {player: thisPlayer, card:thisPlayer.hand[cardIndex]};
     }
     else {return '';}
 

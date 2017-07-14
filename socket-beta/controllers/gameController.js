@@ -69,6 +69,7 @@ router.get("/login", function(req, res) {
     var cardShower = '';
 
     console.log(game.judge);
+    console.log('Turn state:',game.turnState);
 
  //    var cardShower = new gameObj.showPlayPhaseCards(game,player,true);
     if (game.turnState === 'play')
