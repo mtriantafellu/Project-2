@@ -52,6 +52,19 @@ body {
 
 }
 
+.btn-primary:active:focus {
+
+    color: white;
+    background-image: none;
+    box-shadow: none;
+    background-repeat: none;
+    background-color: rgb(124, 252, 0);
+    border-color: rgba(0, 169, 4, 0.92);
+    border-width: 2px;
+
+}
+
+
 a {
 
     color: rgba(0, 180, 2, 0.92);
