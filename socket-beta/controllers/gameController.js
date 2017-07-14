@@ -78,11 +78,19 @@ router.get("/login", function(req, res) {
 
     var game = finder.game;
     var player = finder.player;
+    var cardShower = '';
 
+    console.log(game.judge);
 
  //    var cardShower = new gameObj.showPlayPhaseCards(game,player,true);
-     var cardShower = new gameObj.showPlayPhaseCards(game,player);
+    if (game.turnState === 'play')
+    {console.log('play phase');
+        cardShower = new gameObj.showPlayPhaseCards(game,player);}
+    else if (game.turnState === 'judge')
+    {console.log('judge phase');
+        cardShower = new gameObj.showJudgePhaseCards(game,player);}
 
+    console.log('Still judge/play phase');
 
     var public = cardShower.inPlay;
     var mine = cardShower.inHand;
