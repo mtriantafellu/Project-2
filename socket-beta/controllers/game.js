@@ -73,7 +73,7 @@ function Game(gameName) {
         player.canPlay = false;
 
             // If no one needs to play a card...
-        if(players.findIndex(function(item){return item.canPlay;})===-1)
+        if(players.findIndex(function(item){item.canPlay;})===-1)
         {
                 // ...advance to judge phase of game.
             this.turnState = 'judge';
@@ -290,17 +290,17 @@ var mattB = new Player('Matt B','pass1');
 var mattT = new Player('Matt T','pass2');
 var kevin = new Player('Kevin','pass3');
 var connor = new Player('Connor','pass4');
-var reggie = new Player('Reggie','pass5');
+var rhegi = new Player('Rhegi','pass5');
 var evilKevin = new Player('Evil Kevin','traitor');
 
 
-playerDB = [mattB,mattT,kevin,connor,reggie,evilKevin];
+playerDB = [mattB,mattT,kevin,connor,rhegi,evilKevin];
 gameDB = [game1,game2];
 
 game1.addPlayer(mattT);
 game1.addPlayer(kevin);
 game1.addPlayer(mattB);
-game1.addPlayer(reggie);
+game1.addPlayer(rhegi);
 game2.addPlayer(connor);
 game2.addPlayer(evilKevin);
 game1.start();
@@ -337,7 +337,7 @@ var mattBCardsInPlay = new showPlayPhaseCards(game1,mattB);
 
 console.log(mattBCardsInPlay.inPlay);
 
-game1.placeCard(reggie,reggie.hand[3]);
+game1.placeCard(rhegi,rhegi.hand[3]);
 
 
 // console.log('Let\'s look by string for (game1,mattB)...)');
@@ -369,14 +369,19 @@ function getGamePlayer(gameStr,playerStr) {
            }
         });
 
-    gameFound.players.forEach(function(item) {
-        if (item.name == playerStr) {
-            playerFound = item;
-//            console.log('Found player', playerStr, '=', item)
-            }
-        });
+    if(gameFound != '')
+    {
+        gameFound.players.forEach(function(item) {
+            if (item.name == playerStr) {
+                playerFound = item;
+    //            console.log('Found player', playerStr, '=', item)
+                }
+            });
+    }
 
-    console.log({game:gameFound.name, player:playerFound.name});
+    if(playerFound != '')
+        {console.log('getGamePlayer',{game:gameFound.name, player:playerFound.name});}
+    else{ console.log('Failed to find',gameStr,playerStr);}
 
     this.game = gameFound;
     this.player = playerFound;
@@ -399,6 +404,12 @@ function showPlayPhaseCards(game,player) {
 //    this.adjective = game.turns[Turn].adj;
 
     this.canPlay = player.canPlay;
+
+    this.scores = [];
+    for(var i=0; i<game.players.length;i++)
+    {
+        this.scores.push({score: this.players[i].score, player:this.players[i].name});
+    }
 
     if(this.canPlay){this.inHand.forEach(function(item){item.playable = true;});}
         else {this.inHand.forEach(function(item){item.playable = false;});}
@@ -465,6 +476,12 @@ function showJudgePhaseCards(game,player) {
     this.isJudge = (this.judge == player);
 //    this.adjective = game.turns[Turn].adj;
 
+    this.scores = [];
+    for(var i=0; i<this.players.length;i++)
+    {
+        this.scores.push({score: this.players[i].score, player:this.players[i].name});
+    }
+
             // No one can play cards from hand.  Separate logic for cards in play.
     this.canPlay = false; //player.canPlay;
 
@@ -525,8 +542,41 @@ function showJudgePhaseCards(game,player) {
     return this;
 }
 
+//  Find a card in your hand
+function findPlayerCard(cardStr,playerStr,gameStr) {
+    var str = cardStr;
+    var thisGame = getGamePlayer(gameStr,playerStr).game;
+    var thisPlayer = getGamePlayer(gameStr,playerStr).player;
+
+    var playerIndex=-1;
+    for(var i=0;i<thisGame.players.length;i++)
+    {
+        if(thisPlayer === thisGame.players[i]) {playerIndex = i;}
+    }
+
+    var cardIndex=-1;
+    for(var i=0;i<thisPlayer.hand.length;i++)
+    {
+        if(str === thisPlayer.hand[i].text) {cardIndex = i;}
+    }
 
 
+//    var playerIndex = thisGame.players.indexOf(function(player){
+//            player.hand.indexOf(function(card){return (card.text === cardStr)});
+//    });
+//    var cardIndex = thisPlayer.hand.indexOf(function(card){return (card.text == cardStr);});
+//    var cardIndex = thisPlayer.hand.indexOf(function(card){return (card.text == cardStr);});
+
+    if(cardIndex!==-1 && playerIndex!==-1)
+    {
+        console.log('player number:',playerIndex,'player name:',thisPlayer.name);
+        console.log('card number:',cardIndex,'card name:',thisPlayer.hand[cardIndex].text);
+
+        return({player: thisPlayer, card:thisPlayer.hand[cardIndex]});
+    }
+    else {return '';}
+
+}
 
 function likeThisCard(game,player,card) {
 
@@ -543,9 +593,12 @@ var gameObj = {
     getGamePlayer: getGamePlayer,
     showPlayPhaseCards: showPlayPhaseCards,
     showJudgePhaseCards: showJudgePhaseCards,
-    likeThisCard: likeThisCard
+    likeThisCard: likeThisCard,
+    findPlayerCard: findPlayerCard
 };
 
+
+        //  If this game server were supposed to scale to a large number of users, done and to do should be factored into the Game Object.
 var toDo = [];
 
 function whenDone(socket,call,game){
@@ -567,6 +620,8 @@ function done(param) {
             // }
         }
     );
+        // Don't need memory leak?
+    toDo = [];
 }
 
 

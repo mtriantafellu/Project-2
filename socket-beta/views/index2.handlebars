@@ -23,19 +23,6 @@
         {{> cards/look-card}}
         {{/unless}}
 
-<!--        {{#if this.playable}}
-            {{> cards/play-card}}
-        {{/if}}
-        {{#unless this.playable}}
-            {{> cards/look-card}}
-        {{/unless}}
-
-        {{#if this.playable}}
-            (Playable!)
-        {{/if}}
-        {{#unless this.playable}}
-            (Not playable right now!)
-        {{/unless}}-->
 
         {{#if this.faceUp}}
             (Face up logic works)
@@ -78,3 +65,8 @@
     </li>
     {{/each}}
 </ul>
+
+<h2>Scores!</h2>
+    {{#each scores}}
+        <h4>{{this.player}}:</h4>  {{this.score}}
+    {{/each}}
