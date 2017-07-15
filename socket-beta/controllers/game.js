@@ -5,6 +5,7 @@
 var playerDB = [];
 var gameDB = [];
 
+var cardLog = {};
 
 /**
  * Randomize array element order in-place.
@@ -69,7 +70,15 @@ function Game(gameName) {
     }
 
     this.placeCard = function(player,card){
+            /////////  Put this card into play
         this.playArea[this.players.indexOf(player)]=card;
+            /////////////////////
+            // Replace this card with the last card in your hand, then pop the extra copy of the last card.
+        player.hand[player.hand.indexOf(card)] = player.hand[player.hand.length-1];
+        player.hand.pop();
+            /////////////////////
+        player.drawFrom(player.game.deck);
+
         player.canPlay = false;
 
             // If no one needs to play a card...
@@ -230,6 +239,7 @@ function Player(playerName,playerPassword) {
         var card = deck[deck.length - 1];
         deck.pop();
         this.hand.push(card);
+        logCard(card,this);
     }
 }
 
@@ -275,94 +285,10 @@ function DispCard(dispCard,dispType) {
     }
 }
 
-
-
-
-
-// Sample games and players
-
-var game1 = new Game('game1');
-//var game1 = new Game(1,'game1');
-var game2 = new Game('game2');
-//var game2 = new Game(2,'game2');
-
-var mattB = new Player('Matt B','pass1');
-var mattT = new Player('Matt T','pass2');
-var kevin = new Player('Kevin','pass3');
-var connor = new Player('Connor','pass4');
-var rhegi = new Player('Rhegi','pass5');
-var evilKevin = new Player('Evil Kevin','traitor');
-
-
-playerDB = [mattB,mattT,kevin,connor,rhegi,evilKevin];
-gameDB = [game1,game2];
-
-game1.addPlayer(mattT);
-game1.addPlayer(kevin);
-game1.addPlayer(mattB);
-game1.addPlayer(rhegi);
-game2.addPlayer(connor);
-game2.addPlayer(evilKevin);
-game1.start();
-game2.start();
-console.log('Game 1 deck:',game1.deck);
-//console.log('Game 2 deck:',game2.deck);
-
-
-/*
-
-console.log('Matt T');
-showPlayPhaseCards(game1,mattT);
-console.log('Kevin');
-showPlayPhaseCards(game1,kevin);
-
-
-
-console.log('Kevin plays ',kevin.hand[2],'...');
-
-game1.placeCard(kevin,kevin.hand[2]);
-kevin.drawFrom(game1.deck);
-
-console.log('Matt T');
-showPlayPhaseCards(game1,mattT);
-console.log('Kevin');
-showPlayPhaseCards(game1,kevin);
-console.log('Matt B');
-showPlayPhaseCards(game1,mattB);
-
-console.log('These cards are actually in play:',game1.playArea);
-
-game1.placeCard(mattB,mattB.hand[1]);
-mattB.drawFrom(game1.deck);
-
-console.log('These cards are actually in play:',game1.playArea);
-var mattBCardsInPlay = new showPlayPhaseCards(game1,mattB);
-
-console.log(mattBCardsInPlay.inPlay);
-
-game1.placeCard(rhegi,rhegi.hand[3]);
-*/
-
-
-
-
-// console.log('Let\'s look by string for (game1,mattB)...)');
-// console.log(getGamePlayer('game1','Matt B'));
-
-/*function isGame(gameStr,game) {
-    if(gameStr == game.name) {
-        console.log(gameStr,game.name,'true');
-        return true;}
-    else {
-        console.log(gameStr,game.name,'false');
-        return false;
-    }
+function logCard(card,player) {
+    cardLog[card.text] = {card:card, player:player, game:player.game};
 }
 
-function isPlayer(players,playerStr) {
-    if(players[i].name == playerStr) {return true;}
-    else return false;
-}*/
 
 function getGamePlayer(gameStr,playerStr) {
     var gameFound = '';
@@ -549,7 +475,10 @@ function showJudgePhaseCards(game,player) {
 }
 
 //  Find a card in your hand
+//  ***FAILS BY DESIGN IF THE CARD IS NO LONGER IN YOUR HAND.***
+//
 function findPlayerCard(cardStr,playerStr,gameStr) {
+
     var str = cardStr;
     var thisGame = getGamePlayer(gameStr,playerStr).game;
     var thisPlayer = getGamePlayer(gameStr,playerStr).player;
@@ -581,11 +510,31 @@ function findPlayerCard(cardStr,playerStr,gameStr) {
         return {player: thisPlayer, card:thisPlayer.hand[cardIndex]};
     }
     else {return '';}
-
 }
 
-function likeThisCard(game,player,card) {
+function isJudge(cardStr,playerStr,gameStr) {
+    var find = findPlayerCard(cardStr,playerStr,gameStr);
+    if(find.player && find.card)
+        {
+            if(find.player.game.judge === find.player) {return true;}
+        }
+    else return false;
+}
 
+function likeThisCard(cardText) {
+    if(cardLog[cardText] != undefined)
+        {
+            var CLCT = cardLog[cardText];
+            var player = CLCT.player;
+            var game = CLCT.game;
+            var card = CLCT.card;
+
+            player.score++;
+            console.log('card',card);
+            console.log('player.score',player.score);
+            game.turns[game.turnNum].winner = player;
+            game.endTurn();
+        }
 }
 
 
@@ -600,7 +549,8 @@ var gameObj = {
     showPlayPhaseCards: showPlayPhaseCards,
     showJudgePhaseCards: showJudgePhaseCards,
     likeThisCard: likeThisCard,
-    findPlayerCard: findPlayerCard
+    findPlayerCard: findPlayerCard,
+    isJudge: isJudge
 };
 
 
@@ -630,5 +580,73 @@ function done(param) {
     toDo = [];
 }
 
+
+// Sample games and players
+
+var game1 = new Game('game1');
+//var game1 = new Game(1,'game1');
+var game2 = new Game('game2');
+//var game2 = new Game(2,'game2');
+
+var mattB = new Player('Matt B','pass1');
+var mattT = new Player('Matt T','pass2');
+var kevin = new Player('Kevin','pass3');
+var connor = new Player('Connor','pass4');
+var rhegi = new Player('Rhegi','pass5');
+var evilKevin = new Player('Evil Kevin','traitor');
+
+
+playerDB = [mattB,mattT,kevin,connor,rhegi,evilKevin];
+gameDB = [game1,game2];
+
+game1.addPlayer(mattT);
+game1.addPlayer(kevin);
+game1.addPlayer(mattB);
+game1.addPlayer(rhegi);
+game1.addPlayer(connor);
+game2.addPlayer(evilKevin);
+game1.start();
+game2.start();
+console.log('Game 1 deck:',game1.deck);
+//console.log('Game 2 deck:',game2.deck);
+
+
+/*
+
+ console.log('Matt T');
+ showPlayPhaseCards(game1,mattT);
+ console.log('Kevin');
+ showPlayPhaseCards(game1,kevin);
+
+
+
+ console.log('Kevin plays ',kevin.hand[2],'...');
+
+ game1.placeCard(kevin,kevin.hand[2]);
+ kevin.drawFrom(game1.deck);
+
+ console.log('Matt T');
+ showPlayPhaseCards(game1,mattT);
+ console.log('Kevin');
+ showPlayPhaseCards(game1,kevin);
+ console.log('Matt B');
+ showPlayPhaseCards(game1,mattB);
+
+ console.log('These cards are actually in play:',game1.playArea);
+
+ game1.placeCard(mattB,mattB.hand[1]);
+ mattB.drawFrom(game1.deck);
+
+ console.log('These cards are actually in play:',game1.playArea);
+ var mattBCardsInPlay = new showPlayPhaseCards(game1,mattB);
+
+ console.log(mattBCardsInPlay.inPlay);
+
+ game1.placeCard(rhegi,rhegi.hand[3]);
+ */
+
+/*
+console.log(cardLog[mattB.hand[0].text]);
+console.log('Card log success y/n?');  */
 
 module.exports = gameObj;

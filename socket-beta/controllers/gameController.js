@@ -110,6 +110,9 @@ router.get("/login", function(req, res) {
      var cardRef = '';
      cardRef = gameObj.findPlayerCard(playerToken.card,playerToken.name,playerToken.game);
 
+     console.log('game.turnState:',game.turnState,'playerToken.card',playerToken.card,'game[game.judge]',game.players[game.judge]);
+
+
     if(game.turnState === 'play' && cardRef != '' && player.canPlay)
      {
          console.log(cardRef);
@@ -117,6 +120,12 @@ router.get("/login", function(req, res) {
          game.placeCard(player,cardRef.card);
 //         game.placeCard(cardRef.player, cardRef.card);
      }
+
+     else if (game.turnState === 'judge' && playerToken.card != '' && game.players[game.judge] === player)
+    {
+        gameObj.likeThisCard(playerToken.card);
+        console.log('Did this happen?');
+    }
 
 
     return res.render("index2", {player:player, public:public, mine:mine, pageloads:pageloads, adj:adj, scores: scores} ,function(err, html){
