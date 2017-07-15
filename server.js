@@ -1,20 +1,21 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var methodOverride = require("method-override");
+//var methodOverride = require("method-override");
 
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 var app = express();
 
-// Serve static content for the app from the "public" directory in the application directory.
-
-app.use(express.static("public"));
-//app.use("public", express.static("/assets/css"));
+var gameObj = require('./controllers/game.js');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
+
+
 // Override with POST having ?_method=DELETE
-app.use(methodOverride("_method"));
+//app.use(methodOverride("_method"));
 
 // Set Handlebars.
 var exphbs = require("express-handlebars");
@@ -23,55 +24,54 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
-
-// Need to change catsController.js to cardController.js
-var routes = require("./controllers/cardsController.js");
+var routes = require("./controllers/gameController.js");
 
 app.use("/", routes);
 
-app.listen(port);
 
-
-//   ALL OF THESE HAVE BEEN PUT INTO THE CARDSCONTROLLER.JS
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 /*
- app.get("/", function(req, res) {
- connection.query("SELECT * FROM userinfo;", function(err, data) {
- if (err) {
- throw err;
- }
- res.render("home", { userinfo: data });
- });
- });
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/index.html');
+});*/
 
- app.get("/login", function(req, res) {
- console.log("login");
- res.render("login");
- //  });
- });
+io.on('connection', function(socket)
+{
+    console.log('a user connected');
+    socket.on('disconnect', function()
+        {
+            console.log('user disconnected');
+        });
+});
 
- app.get("/profile", function(req, res) {
- console.log("profile");
- res.render("profile");
- //  });
- });
+http.listen(3000, function(){
+    console.log('listening on *:3000');
+});
 
- app.get("/playarea", function(req, res) {
- connection.query("SELECT * FROM nouns;", function(err, data) {
- if (err) {
- throw (err);
- console.log("playarea");
- }
- res.render("playarea", { nouns: data });
- });
- });
+io.on('connection', function(socket){
+    var sckt = socket;
+    sckt.on('player action', function(msg){
+        console.log('player action: ' + msg);
+//        io.emit('chat message','Hello, Major Tom. This is the server side console.');
+//        io.emit('server message','Refresh page now');
+        gameObj.whenDone('game1',refreshPages);
+    });
+});
 
- app.get("/playarea", function(req, res) {
- connection.query("SELECT * FROM adjectives;", function(err, data) {
- if (err) {
- throw (err);
- console.log("playarea");
- }
- res.render("playarea", { adjectives: data });
- });
- });
- */
+function refreshPages(game) {
+    console.log(game);
+    io.emit('server message','Refresh page now');
+    console.log('Page refresh?');
+    //  Modify emit to only target players relevant to the original socket.
+}
+
+
+
+//
+//
+//
+
+
+
+// app.listen(port);

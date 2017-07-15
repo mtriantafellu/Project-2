@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Game Area</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/layout.css" />
+
+    </head>
+    <body>
+
+    <div class="container">
+
+    <!--Jumbotron Div-->
+<div class="jumbotron">
+    <h1><span class="glyphicon glyphicon-apple"></span>Apples to Apples<span class="glyphicon glyphicon-apple"></span></h1>
+    <h2>Let's Play</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success panel-cards">
+                <div class="panel-heading" id="pHeadings">
+                    <h3 class="panel-title" id="cardArea">Played Cards</h3>
+                </div>
+
+<div class="row">
+
+
+    <div>
+        {{#each public}}
+        <img src=""
+        <ul>
+            <div class="col-sm-2">
+                <li>
+
+                <h3>Card state: {{this.type}}</h3>
+                    <h3>{{this.text}}</h3>
+                    <strong>Description:</strong>{{this.desc}}
+                    {{#if this.playable}}
+                        {{> cards/play-card}}
+                    {{/if}}
+                    {{#unless this.playable}}
+                        {{> cards/look-card}}
+                    {{/unless}}
+
+                {{#if this.faceUp}}
+                    <!-- (Face up logic works) -->
+                    <span><img src="assets/images/cards/applefront.jpg" height="125" width="75"><span id="textarea2"></span>
+                {{/if}}
+
+                {{#if this.faceDown}}
+                    <!--(Face down logic works) -->
+                    <span><img src="assets/images/cards/card_back.jpg" height="125" width="75"><span id="textarea3"></span>
+                {{/if}}
+
+                {{#if this.judge}}
+                    <h4>Judge: {{this.playerName}}</h4>
+                    <span><img src="assets/images/gavel.jpg" height="125" width="75"><span id="textarea4"></span>
+                {{/if}}
+
+                {{#if this.empty}}
+                    <h4>Player: {{this.playerName}}</h4>
+
+                {{/if}}
+
+                {{#if this.isNull}}
+                <h4>Jaqen H'ghar!</h4>  (No one)
+                    <span><img src="/assets/images/jaqen.png" height="115" width="85"><span>
+                {{/if}}
+
+                </li>
+            </div>
+        </ul>
+        {{/each}}
+</div>
+</div>
+
+                <div class="panel-body">
+                    Cards Content
+                </div>
+                    </div><!--class="panel panel-success panel-cards"-->
+                        </div><!--class="col-md-12"-->
+                            </div><!--class="row"-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-success panel-cards">
+                                            <div class="panel-heading" id="pHeadings">
+                                                <h3 class="panel-title" id="cardArea">My Cards</h3>
+                                            </div>
+
+        <div class="row">
+
+        <div>
+            {{#each mine}}
+            <ul>
+                <div class="col-sm-2">
+                    <li>
+                        <h3>{{this.text}}</h3>
+                        <strong>Description:</strong>
+                            {{this.desc}}
+                            {{#if this.playable}}
+                                {{> cards/play-card}}
+                                <span><img src="assets/images/cards/card_back.jpg" height="125" width="75"><span id="textarea8"></span>
+                            {{/if}}
+                            {{#unless this.playable}}
+                                {{> cards/look-card}}
+                                <span><img src="assets/images/cards/applefront.jpg" height="125" width="75"><span id="textarea7"></span>
+                            {{/unless}}
+                        </li>
+            </ul>
+            {{/each}}
+</div>
+        </div>
+
+    <div class="panel-body">
+        Player Cards Content
+    </div>
+    </div><!--class="panel panel-success panel-cards"-->
+    </div><!--class="col-md-12"-->
+    </div><!--class="row"-->
+    </div><!--class="col-md-9"-->
+
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success panel-sidebar">
+                    <div class="panel-heading" id="pHeadings">
+                        <h3 class="panel-title" id="cardArea">My Adjectives</h3>
+                    </div>
+
+                        <div class="panel-body">
+                            <span><img src="assets/images/cards/applefront.jpg" height="300" width="225"><span id="textarea2"></span>
+                        </div>
+                        <div>
+                            <h2>Adjective:</h2>{{adj}}<strong>{{adj.text}}</strong> {{adj.desc}}
+                        </div>
+                </div><!--class="panel panel-success"-->
+            </div><!--class="col-md-12"-->
+        </div><!--class="row"-->
+    </div><!--class="col-md-3"-->
+
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success panel-sidebar">
+                    <div class="panel-heading" id="pHeadings">
+                        <h3 class="panel-title">Player Scores:</h3>
+                    </div>
+
+                        <div class="panel-body">
+
+                        <h2>Scores!</h2>
+                            {{#each scores}}
+                                <h4>{{this.player}}:</h4>  {{this.score}}
+                            {{/each}}
+                        </div>
+
+                       <a class="btn btn-primary btn-lg center-block" href="/profile" role="Log in">See Profile</a>
+
+                </div><!--class="panel panel-success"-->
+            </div><!--class="col-md-12"-->
+        </div><!--class="row"-->
+    </div><!--class="col-md-3"-->
+</div><!--class="row"-->
+
+<div class="row">
+    <div class="panel panel-success panel-cards">
+        <div class="panel-heading" id="pHeadings">
+            <h3 class="panel-title" id="cardArea">Previous Turns</h3>
+        </div>
+
+    </div><!--class="panel panel-success panel-cards"-->
+
+</div><!--class="row"-->
+
+</div><!--class="container"-->
+
+    </body>
+</html>

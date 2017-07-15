@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "root",
-  database: "appToApp_db"   // change to appToApp_db
+  database: "apptoapp_db"
 });
 
 // Make connection.
