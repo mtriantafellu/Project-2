@@ -48,19 +48,15 @@ router.get("/login", function(req, res) {
 });
 
 
-// router.get("/game", function(req, res) {
  router.post("/game", function(req, res) {
 
 //    post
     var playerToken = req.body;
 
-    console.log(playerToken.card,'Hey look at this card!!!!');
-    console.log(playerToken);
-// get
-//  console.log(req.query,'query');
-//     var player = req.query;
+//    console.log(playerToken.card,'Hey look at this card!!!!');
+//    console.log(playerToken);
 
-    pageloads++;
+//    pageloads++;
 
      var finder = new gameObj.getGamePlayer(playerToken.game,playerToken.name);
 
@@ -78,8 +74,9 @@ router.get("/login", function(req, res) {
     else if (game.turnState === 'judge')
     {console.log('judge phase');
         cardShower = new gameObj.showJudgePhaseCards(game,player);}
+    else {console.log('Unable to process game state...');}
 
-    console.log('Still judge/play phase');
+//    console.log('Still judge/play phase');
 
     var public = cardShower.inPlay;
     var mine = cardShower.inHand;
@@ -127,6 +124,13 @@ router.get("/login", function(req, res) {
         console.log('Did this happen?');
     }
 
+    console.log(adj);
+    console.log(adj);
+    console.log(adj);
+    console.log(adj);
+    console.log(adj);
+    console.log(adj);
+    console.log(adj);
 
     return res.render("index2", {player:player, public:public, mine:mine, pageloads:pageloads, adj:adj, scores: scores} ,function(err, html){
         if (err) {
