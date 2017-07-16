@@ -38,8 +38,8 @@
     <div>
         {{#each public}}
         <ul>
-            <div class="col-md-4 col-lg-2">
-                <li>
+            <div class="col-sm-2">
+                <li class="small">
 
                 <!--h3>Card state: {{this.type}}</h3--->
                     <!--h3>{{this.text}}</h3-->
@@ -65,17 +65,17 @@
 
                 {{#if this.judge}}
                     <!--h3>Judge</h3-->
-                    <span><img src="assets/images/gavel.jpg" height="90%" width="90%"><span id="textarea4"></span></span>
+                    <span><img src="assets/images/gavel.jpg" height="85%" width="85%"><span id="textarea4"></span></span>
                 {{/if}}
 
                 {{#if this.empty}}
-                    <span><img src="assets/images/empty.jpg" height="100%" width="100%"><span id="textarea4"></span></span>
+                    <span><img src="assets/images/empty.jpg" height="85%" width="85%"><span id="textarea4"></span></span>
 
                 {{/if}}
 
                 {{#if this.isNull}}
                 <!--h4>Jaqen H'ghar!</h4-->
-                    <span><img src="/assets/images/null.jpg" height="100%" width="100%"><span></span>
+                    <span><img src="/assets/images/null.jpg" height="95%" width="95%"><span></span>
                 {{/if}}
                     <!--p><br><strong>Description:</strong>{{this.desc}}</p-->
 
@@ -103,8 +103,8 @@
 
             {{#each mine}}
             <ul>
-                <div class="col-md-4 col-lg-2">
-                    <li>
+                <div class="col-sm-2">
+                    <li class="small">
                         <!-- <h3>{{this.text}}</h3> -->
                         <!-- <strong>Description:</strong> -->
                         <!-- {{this.desc}} -->
