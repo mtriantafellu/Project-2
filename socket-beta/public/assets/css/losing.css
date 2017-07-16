@@ -1,0 +1,74 @@
+body {
+
+    background-color: rgba(255, 36, 43, 0.87);
+    font-family: porkys;
+
+}
+
+#apples1 {
+
+    font-size: 50px;
+    padding: 1%;
+    color: rgba(124, 252, 0, 0.92);
+
+
+}
+
+#apples2 {
+
+    font-size: 50px;
+    padding: 1%;
+    color: white;
+
+}
+
+#title_row {
+
+    margin-top: 5%;
+    text-align: center;
+
+}
+
+.btn-primary {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    margin-top: -2.5%;
+    transform: translate(-50%, -50%);
+
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:visited {
+
+    color: white;
+    background-image: none;
+    box-shadow: none;
+    background-repeat: none;
+    background-color: rgba(124, 252, 0, 0.92);
+    border-color: rgba(0, 169, 4, 0.92);
+    border-width: 2px;
+
+}
+
+a {
+
+    color: rgba(0, 180, 2, 0.92);
+
+}
+
+a:hover, a:focus, a:active, a:success, a:visited {
+
+    color: rgba(0, 180, 2, 0.92);
+
+}
+
+#losing_apple {
+
+    width: 30%;
+    height: 30%;
+    margin-left: 54%;
+
+
+}
