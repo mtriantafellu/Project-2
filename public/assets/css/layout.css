@@ -3,8 +3,6 @@
 body {
 
 	background-color: rgba(255, 36, 43, 0.87);
-	font-family: 'Slackey', cursive;
-
 }
 
 #pHeadings {
@@ -15,6 +13,7 @@ body {
 	background-color: rgba(124, 252, 0, 0.92);
 	text-align: center;
 	box-shadow: 10px 10px 5px #000000;
+	font-family: 'Slackey', cursive;
 }
 
 .panel-title {
@@ -56,5 +55,9 @@ p {
 .panel-sidebar {
 	min-height: 600px;
 	background-color: #F7A2A2;
+}
+
+ul {
+	list-style: none;
 }
 
