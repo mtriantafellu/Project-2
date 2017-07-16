@@ -19,7 +19,7 @@
     <h1><span class="glyphicon glyphicon-apple"></span>Apples to Apples<span class="glyphicon glyphicon-apple"></span></h1>
     <h2>Let's Play</h2>
 </div>
-<div class="col-md-1">
+<div class="col-lg-1">
 </div>
 
 <div class="row">
@@ -30,7 +30,7 @@
             <div class="col-md-12">
                 <div class="panel panel-success panel-cards">
                     <div class="panel-heading" id="pHeadings">
-                        <h3 class="panel-title" id="cardArea">Played Cards</h3>
+                        <h3 class="panel-title" id="cardArea"><strong>Played Cards</strong></h3>
                     </div>
 
     <div class="row">
@@ -95,7 +95,7 @@
     <div class="col-md-12">
         <div class="panel panel-success panel-cards">
             <div class="panel-heading" id="pHeadings">
-                <h3 class="panel-title" id="cardArea">My Cards</h3>
+                <h3 class="panel-title" id="cardArea"><strong>My Cards</strong></h3>
             </div>
 
         <div class="row">
@@ -140,7 +140,7 @@
             <div class="col-md-12">
                 <div class="panel panel-success panel-sidebar">
                     <div class="panel-heading" id="pHeadings">
-                        <h1 class="panel-title" id="cardArea">Pick the noun which is best described by this adjective:</h1>
+                        <h1 class="panel-title" id="cardArea"><strong>Pick the noun which is best described by this adjective:</strong></h1>
                     </div>
 
                     <div class="image">
@@ -167,7 +167,7 @@
             <div class="col-md-12">
                 <div class="panel panel-success panel-sidebar">
                     <div class="panel-heading" id="pHeadings">
-                        <h3 class="panel-title">Player Scores:</h3>
+                        <h3 class="panel-title"><strong>Player Scores:</strong></h3>
                     </div>
 
                         <div class="panel-body">
@@ -196,8 +196,68 @@
             <h3 class="panel-title" id="cardArea">Previous Turns</h3>
         </div>
 
+        {{#each prevTurns}}
+        <div class="row">
+        <div>
+            {{#each this}}
+            <ul>
+                <div class="col-md-4 col-lg-2">
+                    <li>
+
+                        <!--h3>Card state: {{this.type}}</h3--->
+                        <!--h3>{{this.text}}</h3-->
+
+
+                        <h2>{{this.player.name}}</h2>
+
+                        {{#if this.winner}}
+                        <strong>WINNER!!!</strong><br>
+                        {{/if}}
+
+                        {{#unless this.judge}}
+                        <div class="image">
+
+                            <img src="assets/images/cards/nouncard.jpg" alt="appleFront" height="90%" width="90%"/>
+
+                            <h6><!--button type="submit" value="{{this.text}}" class="play-card">Play this card!</button-->
+                                <br>
+                                <br>
+                                <strong>Noun:  </strong>
+                                <br>
+                                <p>  {{this.card.text}}</p></h6>
+                            <br>
+                            <strong><p>
+                                <br>
+                                Desciption:</strong>{{this.card.desc}}</p>
+                        </div>
+
+                        {{/unless}}
+
+                        {{#if this.judge}}
+                            <span><img src="assets/images/gavel.jpg" height="90%" width="90%"><span id="textarea4"></span></span>
+                        {{/if}}
+
+
+                {{#if this.empty}}
+                    <span><img src="assets/images/empty.jpg" height="100%" width="100%"><span id="textarea4"></span></span>
+                {{/if}}
+
+                {{#if this.isNull}}
+                            <!--h4>Jaqen H'ghar!</h4-->
+                    <span><img src="/assets/images/null.jpg" height="100%" width="100%"><span></span>
+                {{/if}}
+                        <!--p><br><strong>Description:</strong>{{this.desc}}</p-->
+
+                    </li>
+                </div>
+            </ul>
+            {{/each}}
+        </div>
+        </div>
+        {{/each}}
+
     </div><!--class="panel panel-success panel-cards"-->
-    <div class="col-md-1">
+    <div class="col-lg-1">
     </div>
 
 </div><!--class="row"-->
