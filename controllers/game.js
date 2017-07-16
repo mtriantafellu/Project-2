@@ -240,6 +240,10 @@ function Game(gameName) {
     this.newTurn = function() {
         this.turns.push(new Turn(this));
         this.turnState = 'play';
+        for (var i=0; i < this.numPlayers; i++)
+        {
+            this.playArea[i]='';
+        }
 
         // Turn starts in "play phase".  Players choose to play noun, EXCEPT for judge.
         this.players.forEach(function(item){item.canPlay=true});
