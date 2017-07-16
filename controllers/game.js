@@ -665,16 +665,15 @@ function isJudge(cardStr,playerStr,gameStr) {
 }
 
 function likeThisCard(cardText) {
-    if(cardLog[cardText] != undefined)
+    if(cardLog[cardText] != undefined && cardLog[cardText] != null && cardText != 'judge' && cardLog[cardText].game.playArea.indexOf(cardLog[cardText].card)!=-1 )
         {
             var CLCT = cardLog[cardText];
             var player = CLCT.player;
             var game = CLCT.game;
             var card = CLCT.card;
-
+//            var judge = CLCT.game[CLCT.game.judge];
 //            game.judge=0;
-            //  For this turn of this game, the judge "played" the "I was the judge" card.
-            game.turns[game.turnNum].cardsPlayed[game.judge] = {player:game.players[game.judge], card:'judge', judge:true};
+
 
             player.score++;
             console.log('card',card);
@@ -693,7 +692,13 @@ function likeThisCard(cardText) {
                 }
             }
             console.log(game.turns[game.turnNum].cardsPlayed);
-            game.endTurn();
+
+        //  For this turn of this game, the judge "played" the "I was the judge" card.
+        game.turns[game.turnNum].cardsPlayed[game.judge] = {player:game.players[game.judge], card:'judge', judge:true};
+
+        game.endTurn();
+
+
         }
 }
 
