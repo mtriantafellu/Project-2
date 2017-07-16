@@ -73,3 +73,17 @@ ul {
 	list-style: none;
 }
 
+.image {
+	position: relative;
+	width: 100%; /* for IE 6 */
+}
+
+h5 {
+	position: absolute;
+	top: 100px;
+	left: 30%;
+	right: 20%;
+	width: 100%;
+	font-size: 200%%;
+}
+
