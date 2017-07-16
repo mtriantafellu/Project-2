@@ -29,12 +29,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-success panel-cards">
-                <div class="panel-heading" id="pHeadings">
-                    <h3 class="panel-title" id="cardArea">Played Cards</h3>
-                </div>
+                    <div class="panel-heading" id="pHeadings">
+                        <h3 class="panel-title" id="cardArea">Played Cards</h3>
+                    </div>
 
-<div class="row">
-
+    <div class="row">
 
     <div>
         {{#each public}}
@@ -98,20 +97,23 @@
 
         <div class="row">
         <div>
+
             {{#each mine}}
             <ul>
                 <div class="col-sm-2">
                     <li>
-                        <h3>{{this.text}}</h3>
-                        <strong>Description:</strong>
-                            {{this.desc}}
+                        <!-- <h3>{{this.text}}</h3> -->
+                        <!-- <strong>Description:</strong> -->
+                        <!-- {{this.desc}} -->
                             {{#if this.playable}}
                                 {{> cards/play-card}}
-                                <span><img src="assets/images/cards/card_back.jpg" height="90%" width="90%"><span id="textarea8"></span>
+                                    <!-- assets/images/cards/applefront.jpg -->
+                                    <!-- assets/images/cards/card_back.jpg -->
+                                <!-- <span><img src="assets/images/cards/applefront.jpg" height="90%" width="90%"><span id="textarea8"></span> -->
                             {{/if}}
                             {{#unless this.playable}}
                                 {{> cards/look-card}}
-                                <span><img src="assets/images/cards/applefront.jpg" height="90%" width="90%"><span id="textarea7"></span>
+                                <!-- <span><img src="assets/images/cards/card_back.jpg" height="90%" width="90%"><span id="textarea7"></span> -->
                             {{/unless}}
                         </li>
             </ul>
@@ -142,7 +144,10 @@
 
                         <img src="assets/images/cards/applefront.jpg" alt="appleFront" height="90%" width="90%"/>
 
-                        <h5>Adjective:<strong>{{adj.text}}</strong></h5>
+                        <h5><strong>Adjective:  </strong>
+                            <br>
+                            <br>
+                                <p>  {{adj.text}}</p></h5>
                             <br>
                                 <strong><p>
                                     <br>
@@ -189,14 +194,11 @@
         </div>
 
     </div><!--class="panel panel-success panel-cards"-->
-        <div class="col-md-1">
-        </div>
-
+    <div class="col-md-1">
+    </div>
 
 </div><!--class="row"-->
 
-
 </div><!--class="container"-->
-
-    </body>
+</body>
 </html>

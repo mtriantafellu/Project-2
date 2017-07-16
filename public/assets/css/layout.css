@@ -80,10 +80,19 @@ ul {
 
 h5 {
 	position: absolute;
-	top: 100px;
+	top: 75px;
 	left: 30%;
 	right: 20%;
-	width: 100%;
+	width: 50%;
+	font-size: 200%%;
+}
+
+h6 {
+	position: absolute;
+	top: 10px;
+	left: 30%;
+	right: 20%;
+	width: 50%;
 	font-size: 200%%;
 }
 
