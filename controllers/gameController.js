@@ -121,6 +121,8 @@ router.post("/game", function(req, res) {
     var adj = cardShower.adj;
     var scores = cardShower.scores;
 
+    var history = new gameObj.showPrevTurns(game);
+
     //    var names = cardShower.players;
 
     /*   var public = gameObj.showPlayPhaseCards(game,player,true).inPlay;
@@ -150,8 +152,8 @@ router.post("/game", function(req, res) {
 
     if(game.turnState === 'play' && cardRef != '' && player.canPlay)
     {
-        console.log(cardRef);
-        console.log(cardRef);
+//        console.log(cardRef);
+        console.log(cardRef.text);
         game.placeCard(player,cardRef.card);
 //         game.placeCard(cardRef.player, cardRef.card);
     }
@@ -169,8 +171,13 @@ router.post("/game", function(req, res) {
     console.log(adj);
     console.log(adj);
     console.log(adj);
+    console.log(history);
+    console.log(history.dispTurns);
+    console.log(history.dispTurns[0]);
+    console.log(history.dispTurns[1]);
+    console.log(history.dispTurns[2]);
 
-    return res.render("index2", {player:player, public:public, mine:mine, pageloads:pageloads, adj:adj, scores: scores} ,function(err, html){
+    return res.render("index2", {player:player, public:public, mine:mine, pageloads:pageloads, adj:adj, scores: scores, prevTurns:history.dispTurns} ,function(err, html){
         if (err) {
             console.log("ERR", err);
 

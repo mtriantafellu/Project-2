@@ -101,6 +101,8 @@ function Game(gameName) {
         {
             /////////  Put this card into play
             this.playArea[this.players.indexOf(player)] = card;
+                    //  for the current turn, log the card played by this player in the appropriate slot. (I was not the judge)
+            this.turns[this.turnNum].cardsPlayed[this.players.indexOf(player)] = {player:player, card:card, judge:false};
             /////////////////////
             // Replace this card with the last card in your hand, then pop the extra copy of the last card.
             player.hand[player.hand.indexOf(card)] = player.hand[player.hand.length - 1];
@@ -284,7 +286,7 @@ function Turn(game) {
 
     for(i=0; i<game.numPlayers ; i++)
     {
-        this.cardsPlayed.push('');
+        this.cardsPlayed.push({});
     }
 
 
@@ -449,6 +451,78 @@ function showPlayPhaseCards(game,player) {
     return this;
 }
 
+function showPrevTurns(gameRef) {
+//function showPlayPhaseCards(game,player) {
+
+    this.game = gameRef;
+
+    this.dispTurns = [];
+    this.turnNum = this.game.turnNum;
+
+    for(var i=0; i<this.game.turnNum; i++)
+        {
+            this.dispTurns[this.turnNum-i-1] = this.game.turns[this.turnNum-i-1].cardsPlayed;
+        }
+//    this.turns[this.turnNum].cardsPlayed[this.players.indexOf(player)] = {player:player, card:card, judge:false};
+
+
+    return this; //this.dispTurns;
+//    this.players = game.players;
+//    this.inPlay = [];
+//    this.inHand = player.hand;
+//    this.playerIndex = game.players.indexOf(player);
+//    this.adj = game.turns[game.turnNum].adj;
+
+//    this.adjective = game.turns[Turn].adj;
+
+/*    this.canPlay = player.canPlay;
+
+    this.scores = [];
+    for(var i=0; i<game.players.length;i++)
+    {
+        this.scores.push({score: this.players[i].score, player:this.players[i].name});
+    }
+
+    if(this.canPlay){this.inHand.forEach(function(item){item.playable = true;});}
+    else {this.inHand.forEach(function(item){item.playable = false;});}
+
+    // cards in play
+    for(var i=0; i<6; i++)
+    {
+        var card = game.playArea[i];
+        if(!card) {card ='';}
+        if (game.judge == i)
+        {
+            this.inPlay.push(new DispCard('judge','judge'));
+            this.inPlay[this.inPlay.length-1].playerName = this.players[i].name;
+        }
+        else if (i == this.playerIndex && game.judge != i && card != '')
+        {
+            this.inPlay.push(new DispCard(card,'faceUp'));
+            this.inPlay[this.inPlay.length-1].playerName = this.players[i].name;
+        }
+        else if (game.judge != i && card == '' && i<game.numPlayers)
+        {
+            this.inPlay.push(new DispCard('','empty'));
+            this.inPlay[this.inPlay.length-1].playerName = this.players[i].name;
+        }
+        else if(game.judge !=i && card != '' && i<game.numPlayers)
+        {
+            this.inPlay.push(new DispCard('','faceDown'));
+            this.inPlay[this.inPlay.length-1].playerName = this.players[i].name;
+        }
+        else if (i>=game.numPlayers)
+        {
+            this.inPlay.push(new DispCard('','null'));
+            this.inPlay[this.inPlay.length-1].playerName = 'No one...';
+        }
+    }
+    console.log('Adjective:',this.adj);
+    console.log(player.name,'sees these cards in play:',this.inPlay);
+    console.log(player.name,'has these cards in hand:',this.inHand);
+
+    return this;*/
+}
 
 //  Adjective is visible.
 //  Cards in play are visible.
@@ -594,10 +668,27 @@ function likeThisCard(cardText) {
             var game = CLCT.game;
             var card = CLCT.card;
 
+//            game.judge=0;
+            //  For this turn of this game, the judge "played" the "I was the judge" card.
+            game.turns[game.turnNum].cardsPlayed[game.judge] = {player:game.players[game.judge], card:'judge', judge:true};
+
             player.score++;
             console.log('card',card);
             console.log('player.score',player.score);
             game.turns[game.turnNum].winner = player;
+
+            for(var i=0; i<game.players.length; i++)
+            {
+                if(player === game.players[i])
+                {
+                    game.turns[game.turnNum].cardsPlayed[i].winner = true;
+                }
+                else
+                {
+                    game.turns[game.turnNum].cardsPlayed[i].winner = false;
+                }
+            }
+            console.log(game.turns[game.turnNum].cardsPlayed);
             game.endTurn();
         }
 }
@@ -615,6 +706,7 @@ var gameObj = {
     showJudgePhaseCards: showJudgePhaseCards,
     likeThisCard: likeThisCard,
     findPlayerCard: findPlayerCard,
+    showPrevTurns: showPrevTurns,
     isJudge: isJudge
 };
 
@@ -675,6 +767,9 @@ game2.start();
 console.log('Game 1 deck:',game1.deck);
 //console.log('Game 2 deck:',game2.deck);
 
+console.log(game1.turns[0]);
+console.log(game1.turns[0].cardsPlayed);
+console.log(game1.judge,'judge');
 
 /*
 
