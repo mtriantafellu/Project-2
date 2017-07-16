@@ -102,7 +102,7 @@ function Game(gameName) {
             /////////  Put this card into play
             this.playArea[this.players.indexOf(player)] = card;
                     //  for the current turn, log the card played by this player in the appropriate slot. (I was not the judge)
-            this.turns[this.turnNum].cardsPlayed[this.players.indexOf(player)] = {player:player, card:card, judge:false};
+            this.turns[this.turnNum].cardsPlayed[this.players.indexOf(player)] = {player:player, card:card, judge:false, isAdj:false};
             /////////////////////
             // Replace this card with the last card in your hand, then pop the extra copy of the last card.
             player.hand[player.hand.indexOf(card)] = player.hand[player.hand.length - 1];
@@ -458,10 +458,14 @@ function showPrevTurns(gameRef) {
 
     this.dispTurns = [];
     this.turnNum = this.game.turnNum;
+    this.adj = [];
 
     for(var i=0; i<this.game.turnNum; i++)
         {
             this.dispTurns[this.turnNum-i-1] = this.game.turns[this.turnNum-i-1].cardsPlayed;
+                // {{#if isAdj}} (show adjective card)
+            this.dispTurns[this.turnNum-i-1][this.game.players.length] = {isAdj:true, adj: this.game.turns[this.turnNum-i-1].adj};
+//            this.adj[this.turnNum-i-1] = this.game.turns[this.turnNum-i-1].adj;
         }
 //    this.turns[this.turnNum].cardsPlayed[this.players.indexOf(player)] = {player:player, card:card, judge:false};
 
@@ -661,16 +665,15 @@ function isJudge(cardStr,playerStr,gameStr) {
 }
 
 function likeThisCard(cardText) {
-    if(cardLog[cardText] != undefined)
+    if(cardLog[cardText] != undefined && cardLog[cardText] != null && cardText != 'judge' && cardLog[cardText].game.playArea.indexOf(cardLog[cardText].card)!=-1 )
         {
             var CLCT = cardLog[cardText];
             var player = CLCT.player;
             var game = CLCT.game;
             var card = CLCT.card;
-
+//            var judge = CLCT.game[CLCT.game.judge];
 //            game.judge=0;
-            //  For this turn of this game, the judge "played" the "I was the judge" card.
-            game.turns[game.turnNum].cardsPlayed[game.judge] = {player:game.players[game.judge], card:'judge', judge:true};
+
 
             player.score++;
             console.log('card',card);
@@ -689,7 +692,13 @@ function likeThisCard(cardText) {
                 }
             }
             console.log(game.turns[game.turnNum].cardsPlayed);
-            game.endTurn();
+
+        //  For this turn of this game, the judge "played" the "I was the judge" card.
+        game.turns[game.turnNum].cardsPlayed[game.judge] = {player:game.players[game.judge], card:'judge', judge:true};
+
+        game.endTurn();
+
+
         }
 }
 
