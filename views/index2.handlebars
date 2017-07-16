@@ -206,36 +206,55 @@
 
                         <!--h3>Card state: {{this.type}}</h3--->
                         <!--h3>{{this.text}}</h3-->
+                        {{#if this.isAdj}}
+                            <div class="image">
 
+                                <img src="assets/images/cards/adjcard.jpg" alt="appleFront" height="90%" width="90%"/>
 
-                        <h2>{{this.player.name}}</h2>
+                                <h5><!--strong>Adjective:  </strong-->
+                                    <br>
+                                    <br>
+                                    <p class="adjective">  {{this.adj.text}}</p></h5>
+                                <br>
+                                <h4><p class="adjective"><strong>
+                                    <br>
+                                    Desciption:</strong>{{this.adj.desc}}</p></h4>
 
-                        {{#if this.winner}}
-                        <strong>WINNER!!!</strong><br>
+                            </div>
                         {{/if}}
 
-                        {{#unless this.judge}}
-                        <div class="image">
 
-                            <img src="assets/images/cards/nouncard.jpg" alt="appleFront" height="90%" width="90%"/>
+                        {{#unless this.isAdj}}
+                            <h2>{{this.player.name}}</h2>
 
-                            <h6><!--button type="submit" value="{{this.text}}" class="play-card">Play this card!</button-->
+                            {{#if this.winner}}
+                            <strong>WINNER!!!</strong><br>
+                            {{/if}}
+
+                            {{#unless this.judge}}
+                            <div class="image">
+
+                                <img src="assets/images/cards/nouncard.jpg" alt="appleFront" height="90%" width="90%"/>
+
+                                <h6><!--button type="submit" value="{{this.text}}" class="play-card">Play this card!</button-->
+                                    <br>
+                                    <br>
+                                    <strong>Noun:  </strong>
+                                    <br>
+                                    <p>  {{this.card.text}}</p></h6>
                                 <br>
-                                <br>
-                                <strong>Noun:  </strong>
-                                <br>
-                                <p>  {{this.card.text}}</p></h6>
-                            <br>
-                            <strong><p>
-                                <br>
-                                Desciption:</strong>{{this.card.desc}}</p>
-                        </div>
+                                <strong><p>
+                                    <br>
+                                    Desciption:</strong>{{this.card.desc}}</p>
+                            </div>
+
+                            {{/unless}}
+
+                            {{#if this.judge}}
+                                <span><img src="assets/images/gavel.jpg" height="90%" width="90%"><span id="textarea4"></span></span>
+                            {{/if}}
 
                         {{/unless}}
-
-                        {{#if this.judge}}
-                            <span><img src="assets/images/gavel.jpg" height="90%" width="90%"><span id="textarea4"></span></span>
-                        {{/if}}
 
 
                 {{#if this.empty}}
