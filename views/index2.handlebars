@@ -41,41 +41,43 @@
             <div class="col-sm-2">
                 <li>
 
-                <h3>Card state: {{this.type}}</h3>
-                    <h3>{{this.text}}</h3>
-                    <strong>Description:</strong>{{this.desc}}
+                <!--h3>Card state: {{this.type}}</h3--->
+                    <!--h3>{{this.text}}</h3-->
+
+
+                <h2>{{this.playerName}}</h2>
+
+                {{#if this.faceUp}}
+                    <!-- (Face up logic works) -->
                     {{#if this.playable}}
                         {{> cards/play-card}}
                     {{/if}}
                     {{#unless this.playable}}
                         {{> cards/look-card}}
                     {{/unless}}
-
-                {{#if this.faceUp}}
-                    <!-- (Face up logic works) -->
-                    <span><img src="assets/images/cards/applefront.jpg" height="90%" width="90%"><span id="textarea2"></span>
+                    <!--span><img src="assets/images/cards/applefront.jpg" height="90%" width="90%"><span id="textarea2"></span></span-->
                 {{/if}}
 
                 {{#if this.faceDown}}
                     <!--(Face down logic works) -->
-                    <!-- <span><img src="assets/images/cards/card_back.jpg" height="90%" width="90%"><span id="textarea3"></span> -->
+                    <span><img src="assets/images/cards/card_back.jpg" height="90%" width="90%"><span id="textarea3"></span>
                 {{/if}}
 
                 {{#if this.judge}}
-                    <h4>Judge: {{this.playerName}}</h4>
-                    <span><img src="assets/images/gavel.jpg" height="90%" width="90%"><span id="textarea4"></span>
+                    <h3>Judge</h3>
+                    <span><img src="assets/images/gavel.jpg" height="90%" width="90%"><span id="textarea4"></span></span>
                 {{/if}}
 
                 {{#if this.empty}}
-                    <h4>Player: {{this.playerName}}</h4>
-                    <span><img src="assets/images/empty.jpg" height="100%" width="100%"><span id="textarea4"></span>
+                    <span><img src="assets/images/empty.jpg" height="100%" width="100%"><span id="textarea4"></span></span>
 
                 {{/if}}
 
                 {{#if this.isNull}}
-                <h4>Jaqen H'ghar!</h4>
-                    <span><img src="/assets/images/null.jpg" height="100%" width="100%"><span>
+                <!--h4>Jaqen H'ghar!</h4-->
+                    <span><img src="/assets/images/null.jpg" height="100%" width="100%"><span></span>
                 {{/if}}
+                    <!--p><br><strong>Description:</strong>{{this.desc}}</p-->
 
                 </li>
             </div>
@@ -83,9 +85,9 @@
         {{/each}}
 </div>
 </div>
-    <div class="panel-body">
+    <!--div class="panel-body">
          Cards Content
-    </div>
+    </div-->
         </div><!--class="panel panel-success panel-cards"-->
     </div><!--class="col-md-12"-->
 </div><!--class="row"-->
@@ -125,9 +127,9 @@
 <div class="col-md-1">
 </div>
 
-    <div class="panel-body">
+    <!--div class="panel-body">
         Player Cards Content
-    </div>
+    </div-->
             </div><!--class="panel panel-success panel-cards"-->
         </div><!--class="col-md-12"-->
     </div><!--class="row"-->
@@ -138,21 +140,21 @@
             <div class="col-md-12">
                 <div class="panel panel-success panel-sidebar">
                     <div class="panel-heading" id="pHeadings">
-                        <h3 class="panel-title" id="cardArea">My Adjectives</h3>
+                        <h1 class="panel-title" id="cardArea">Pick the noun which is best described by this adjective:</h1>
                     </div>
 
                     <div class="image">
 
                         <img src="assets/images/cards/adjcard.jpg" alt="appleFront" height="90%" width="90%"/>
 
-                        <h5><strong>Adjective:  </strong>
+                        <h5><!--strong>Adjective:  </strong-->
                             <br>
                             <br>
-                                <p>  {{adj.text}}</p></h5>
+                                <p class="adjective">  {{adj.text}}</p></h5>
                             <br>
-                                <strong><p>
+                                <h4><p class="adjective"><strong>
                                     <br>
-                                    Desciption:</strong>{{adj.desc}}</p>
+                                    Desciption:</strong>{{adj.desc}}</p></h4>
 
                     </div>
                 </div><!--class="panel panel-success"-->

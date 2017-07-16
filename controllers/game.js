@@ -89,10 +89,12 @@ function Game(gameName) {
         }
     };
 
+/*
+    Refactored elsewhere.  (Once per turn, not once per game)
     for (var i=0; i < this.numPlayers; i++)
     {
         this.playArea[i]='';
-    }
+    }*/
 
     this.placeCard = function(player,card){
         if(player.canPlay && player.hand.indexOf(card)!==-1)
