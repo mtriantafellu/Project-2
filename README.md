@@ -4,7 +4,15 @@ Apples To Apples, the classic card game, is now available online with many new f
 
 ## Getting Started
 
-You will be required to log in or create an account in order to play online. Once you create an account, INSTRUCTIONS GO HERE I DONT KNOW HOW TO PLAY THE GAME.
+Please visit https://ucf-applestoapples.herokuapp.com/ to play online.  There are two available games, please table below:
+
+    Game 1:               Game2:
+    Matt B    pass1       C-3PO     p4551
+    Matt T    pass2       Bender    p4552
+    Kevin     pass3       Johnny 5  p4553
+    Connor    pass4
+    Rhegi     pass5
+
 
 ## Version
 
