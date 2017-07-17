@@ -124,6 +124,10 @@ nightmare2
         .wait(MAXWAIT*Math.random())
         .wait('button')
         .click('button')
+        .wait('button')
+        .wait(MAXWAIT*Math.random())
+        .wait('button')
+        .click('button')
 
     .then(function (result) {
         console.log('A most satisfying game. I love human entertainment. -Johnny 5');
