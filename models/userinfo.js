@@ -1,6 +1,6 @@
 // Import the ORM to create functions that will interact with the database.
-var orm = require("../config/orm.js");
-
+//var orm = require("../config/orm.js");
+/*
 var userinfo = {
   all: function(cb) {
     orm.all("userinfo", function(res) {
@@ -22,3 +22,4 @@ var userinfo = {
 
 // Export the database functions for the controller (catsController.js).
 module.exports = userinfo;
+*/
