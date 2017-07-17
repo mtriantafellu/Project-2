@@ -8,7 +8,7 @@ router.use(bodyParser.json());
 
 // From Main
 // USERINFO
-var userinfo = require("../models/userinfo.js");
+//var userinfo = require("../models/userinfo.js");
 
 // Create all our routes and set up logic within those routes where required.
 
