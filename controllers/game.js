@@ -462,9 +462,9 @@ function showPrevTurns(gameRef) {
 
     for(var i=0; i<this.game.turnNum; i++)
         {
-            this.dispTurns[this.turnNum-i-1] = this.game.turns[this.turnNum-i-1].cardsPlayed;
+            this.dispTurns[i] = this.game.turns[this.turnNum-i-1].cardsPlayed;
                 // {{#if isAdj}} (show adjective card)
-            this.dispTurns[this.turnNum-i-1][this.game.players.length] = {isAdj:true, adj: this.game.turns[this.turnNum-i-1].adj};
+            this.dispTurns[i][this.game.players.length] = {isAdj:true, adj: this.game.turns[this.turnNum-i-1].adj};
 //            this.adj[this.turnNum-i-1] = this.game.turns[this.turnNum-i-1].adj;
         }
 //    this.turns[this.turnNum].cardsPlayed[this.players.indexOf(player)] = {player:player, card:card, judge:false};
@@ -761,17 +761,29 @@ var connor = new Player('Connor','pass4');
 var rhegi = new Player('Rhegi','pass5');
 var evilKevin = new Player('Evil Kevin','traitor');
 
+var c3po = new Player('C-3PO', 'p4551');
+var bender = new Player('Bender','p4552');
+var johnny = new Player('Johnny 5','p4553');
 
 playerDB = [mattB,mattT,kevin,connor,rhegi,evilKevin];
 gameDB = [game1,game2];
 
+////////////////
+//game1
+////////////////
 game1.addPlayer(mattT);
 game1.addPlayer(kevin);
 game1.addPlayer(mattB);
 game1.addPlayer(rhegi);
 game1.addPlayer(connor);
-game2.addPlayer(evilKevin);
+//game2.addPlayer(evilKevin);
 game1.start();
+////////////////////
+
+game2.addPlayer(c3po);
+game2.addPlayer(bender);
+game2.addPlayer(johnny);
+
 game2.start();
 console.log('Game 1 deck:',game1.deck);
 //console.log('Game 2 deck:',game2.deck);
