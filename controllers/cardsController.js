@@ -60,11 +60,11 @@ var login = require("../models/login.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/login", function(req, res) {
-    login.all(function(data) {
+    /*login.all(function(data) {
         var hbsObject = {
             login: data
         };
-        console.log(hbsObject);
+        console.log(hbsObject);*/
         res.render("login", hbsObject);
     });
 });

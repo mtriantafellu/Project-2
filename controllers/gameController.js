@@ -16,13 +16,13 @@ var gameObj = require('./game.js');
 var pageloads = 0;
 
 router.get("/", function(req, res) {
-    userinfo.all(function(data) {
+    /*userinfo.all(function(data) {
         var hbsObject = {
             userinfo: data
         };
-        console.log(hbsObject);
-        res.render("home", hbsObject);
-    });
+        console.log(hbsObject);*/
+        res.render("home"/*, hbsObject*/);
+    //});
 });
 
 // PROFILE
@@ -30,23 +30,23 @@ var profile = require("../models/profile.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/profile", function(req, res) {
-    profile.all(function(data) {
+    /*profile.all(function(data) {
         var hbsObject = {
             profile: data
         };
-        console.log(hbsObject);
-        res.render("profile", hbsObject);
-    });
+        console.log(hbsObject);*/
+        res.render("profile"/*, hbsObject*/);
+    //});
 });
 
 router.post("/", function(req, res) {
-    profile.create([
+    /*profile.create([
         "user_name", "user_password"
     ], [
         req.body.user_name, req.body.user_password
-    ], function() {
+    ], function() {*/
         res.redirect("/");
-    });
+    //});
 });
 
 // End from Main
